@@ -55,12 +55,18 @@ class GridWidget extends StatelessWidget {
         children: _buildGridTileList(99));
   }
 
-  List<Widget> _buildGridTileList(int count) => List.generate(
-      count,
-      (i) => InkWell(
-            child: Container(
-                color: Colors.lime[200],
-                child: Center(child: Text((i + 2).toString()))),
-            onTap: () => print("Container pressed"),
-          ));
+  List<Widget> _buildGridTileList(int count) => generateCells(count);
+
+  List<Widget> generateCells(int count) {
+    return List.generate(count, (i) => generateCell(i));
+  }
+
+  InkWell generateCell(int i) {
+    return InkWell(
+      child: Container(
+          color: Colors.lime[200],
+          child: Center(child: Text((i + 2).toString()))),
+      onTap: () => print("Container pressed"),
+    );
+  }
 }
