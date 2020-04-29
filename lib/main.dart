@@ -35,6 +35,7 @@ class MainBodyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.lime,
+
       child: GridWidget(),
     );
   }
@@ -52,21 +53,31 @@ class GridWidget extends StatelessWidget {
         padding: const EdgeInsets.all(4),
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
-        children: _buildGridTileList(99));
+        children: _buildGridTileList(99,context));
   }
 
-  List<Widget> _buildGridTileList(int count) => generateCells(count);
+  List<Widget> _buildGridTileList(int count,BuildContext context) => generateCells(count, context);
 
-  List<Widget> generateCells(int count) {
-    return List.generate(count, (i) => generateCell(i));
+  List<Widget> generateCells(int count,BuildContext context) {
+    return List.generate(count, (i) => generateCell(i,context));
   }
 
-  InkWell generateCell(int i) {
+  InkWell generateCell(int i,BuildContext context) {
+    var cellText = getCellText(i);
     return InkWell(
       child: Container(
-          color: Colors.lime[200],
-          child: Center(child: Text((i + 2).toString()))),
-      onTap: () => print("Container pressed"),
+          color: Colors.lime[200], child: Center(child: Text(cellText))),
+      onTap: () => tapAction(cellText,context),
     );
   }
+
+  void tapAction(String cellText,BuildContext context) {
+    print("Container pressed $cellText");
+    int cellNo = int.parse(cellText);
+    print(context);
+    var gvw = context ;
+    print(gvw.widget.createElement());
+  }
+
+  String getCellText(int i) => (i + 2).toString();
 }
