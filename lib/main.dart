@@ -62,7 +62,7 @@ class GridWidget extends StatelessWidget {
     return List.generate(count, (i) => generateCell(i,context));
   }
 
-  InkWell generateCell(int i,BuildContext context) {
+  InkWell generateCell(int i,BuildContext context) {     
     var cellText = getCellText(i);
     return InkWell(
       child: Container(
@@ -76,7 +76,7 @@ class GridWidget extends StatelessWidget {
     int cellNo = int.parse(cellText);
     print(context);
     var gvw = context ;
-    print(gvw.widget.createElement());
+    print(gvw.widget);
   }
 
   String getCellText(int i) => (i + 2).toString();
