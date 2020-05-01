@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mult_tables/pages/cellWidget.dart';
 
 class TablePageWidget extends StatelessWidget {
   final int cellNo;
@@ -60,11 +61,12 @@ class GridWidget extends StatelessWidget {
 
   InkWell generateCell(int i,int cellNo, BuildContext context) {     
     var cellText = getCellText(i, cellNo);
-    return InkWell(
-      child: Container(
-          color: Colors.lime[200], child: Center(child: Text(cellText))),
+    var container = CellWidget(cellText: cellText);
+        return InkWell(
+          child: container,
     );
   }
 
   String getCellText(int i, int cellNo) => ' * ${i+2} = ${((i + 2) * cellNo).toString()}';
 }
+

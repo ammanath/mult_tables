@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mult_tables/pages/cellWidget.dart';
 import 'package:mult_tables/pages/tablePageWidget.dart';
 
 class HomePageWidget extends StatelessWidget {
@@ -28,7 +29,6 @@ class MainBodyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.lime,
-
       child: GridWidget(),
     );
   }
@@ -46,10 +46,9 @@ class GridWidget extends StatelessWidget {
         padding: const EdgeInsets.all(4),
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
-        children: _buildGridTileList(99,context));
+        children: generateCells(99, context),
+    );
   }
-
-  List<Widget> _buildGridTileList(int count,BuildContext context) => generateCells(count, context);
 
   List<Widget> generateCells(int count,BuildContext context) {
     return List.generate(count, (i) => generateCell(i,context));
@@ -58,8 +57,7 @@ class GridWidget extends StatelessWidget {
   InkWell generateCell(int i,BuildContext context) {     
     var cellText = getCellText(i);
     return InkWell(
-      child: Container(
-          color: Colors.lime[200], child: Center(child: Text(cellText))),
+      child: CellWidget(cellText: cellText),
       onTap: () => tapAction(cellText,context),
     );
   }
