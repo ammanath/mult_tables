@@ -11,12 +11,14 @@ class TablePageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Multi Tables for $multBy'),
-      ),
-      body: Center(
-        child: TableBodyWidget(multBy),
+    return SafeArea(
+          child: Scaffold(
+        appBar: AppBar(
+          title: Text('Multi Tables for $multBy'),
+        ),
+        body: Center(
+          child: TableBodyWidget(multBy),
+        ),
       ),
     );
   }

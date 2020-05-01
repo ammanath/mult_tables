@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lime,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomePageWidget(),
+      home: SafeArea(child: HomePageWidget()),
     );
   }
 }
