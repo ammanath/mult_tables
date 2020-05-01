@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mult_tables/pages/cellWidget.dart';
 
 class TablePageWidget extends StatelessWidget {
-  final int cellNo;
+  final int multBy;
 
-  const TablePageWidget(this.cellNo, {
+  const TablePageWidget(
+    this.multBy, {
     Key key,
   }) : super(key: key);
 
@@ -12,19 +13,20 @@ class TablePageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Multi Tables for $cellNo'),
+        title: Text('Multi Tables for $multBy'),
       ),
       body: Center(
-        child: TableBodyWidget(cellNo),
+        child: TableBodyWidget(multBy),
       ),
     );
   }
 }
 
 class TableBodyWidget extends StatelessWidget {
-  final int cellNo;
+  final int multBy;
 
-  const TableBodyWidget(this.cellNo, {
+  const TableBodyWidget(
+    this.multBy, {
     Key key,
   }) : super(key: key);
 
@@ -32,17 +34,17 @@ class TableBodyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.green,
-
-      child: GridWidget(cellNo),
+      child: GridWidget(multBy),
     );
   }
 }
 
 class GridWidget extends StatelessWidget {
-  const GridWidget(this.cellNo, {
+  const GridWidget(
+    this.multBy, {
     Key key,
   }) : super(key: key);
-  final int cellNo;
+  final int multBy;
   @override
   Widget build(BuildContext context) {
     return GridView.extent(
@@ -50,23 +52,32 @@ class GridWidget extends StatelessWidget {
         padding: const EdgeInsets.all(4),
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
-        children: _buildGridTileList(99,cellNo,context));
+        children: _buildGridTileList(28, multBy, context));
   }
 
-  List<Widget> _buildGridTileList(int count,int cellNo, BuildContext context) => generateCells(count, cellNo, context);
+  List<Widget> _buildGridTileList(
+          int count, int multBy, BuildContext context) =>
+      generateCells(count, multBy, context);
 
-  List<Widget> generateCells(int count,int cellNo, BuildContext context) {
-    return List.generate(count, (i) => generateCell(i,cellNo,context));
+  List<Widget> generateCells(int count, int multBy, BuildContext context) {
+    return List.generate(count, (i) => generateCell(i, multBy, context));
   }
 
-  InkWell generateCell(int i,int cellNo, BuildContext context) {     
-    var cellText = getCellText(i, cellNo);
+  InkWell generateCell(int i, int multBy, BuildContext context) {
+    var cellText = getCellText(i, multBy);
     var container = CellWidget(cellText: cellText);
-        return InkWell(
-          child: container,
+    return InkWell(
+      child: container,
+      onTap: () => tapAction(i, multBy, cellText, context),
     );
   }
 
-  String getCellText(int i, int cellNo) => ' * ${i+2} = ${((i + 2) * cellNo).toString()}';
-}
+  String getCellText(int i, int multBy) =>
+      ' * ${i + 2} = ${((i + 2) * multBy).toString()}';
 
+  void tapAction(int count, int multBy, String cellText, BuildContext context) {
+    print(
+        "Container pressed count: $count , multBy: $multBy, cellText: $cellText");
+    print(context.widget);
+  }
+}
