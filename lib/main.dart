@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mult_tables/pages/homePageWidget.dart';
+import 'package:mult_tables/pages/quizPageWidget.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lime,
       ),
       debugShowCheckedModeBanner: false,
-      home: SafeArea(child: HomePageWidget()),
+      home: SafeArea(child: QuizPageWidget()),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mult_tables/pages/cellWidget.dart';
+import 'package:mult_tables/pages/quizPageWidget.dart';
 
 class TablePageWidget extends StatelessWidget {
   final int multBy;
@@ -15,11 +16,22 @@ class TablePageWidget extends StatelessWidget {
           child: Scaffold(
         appBar: AppBar(
           title: Text('Multi Tables for $multBy'),
-        ),
+          actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.question_answer),
+            color: Colors.lime[700],
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => QuizPageWidget()),);
+            },
+          ),
+          
+        ]),
         body: Center(
           child: TableBodyWidget(multBy),
         ),
-      ),
+        ),
+        
+        
     );
   }
 }
