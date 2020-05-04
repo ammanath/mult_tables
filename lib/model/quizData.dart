@@ -18,6 +18,15 @@ class Quiz {
       secondListOfNumbers = _result[1];
       }
 
+List<int> getPossibleResults(int i, int j){
+  List<int> results = [];
+  results = List.generate(4, (index ) => i*j*Random().nextInt(index+i+j));
+  List<int> right = [i*j];
+  int index = Random().nextInt(4);
+  results.replaceRange(index, index, right);
+  return null;
+}
+
 // @param const countOfQuestions = 5; This is the length of the List returned
 // const levelOfQuiz = 7; //random generator upto this level (not inclusive). Max number in the quiz
 // const startLevel = 0; //lowest digit in the quiz, Min number in the quiz

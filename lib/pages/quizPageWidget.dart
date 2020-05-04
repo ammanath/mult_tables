@@ -64,13 +64,13 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
             alignment: Alignment.topCenter,
             child: Column(
               children: 
-                GetText(),
+                getText(),
             )),
       ),
     );
   }
 
-  dynamic GetText(){
+  dynamic getText(){
     var texts = <Widget>[];
     for (int i = 0; i < quiz.firstListOfNumbers.length; i++)
                   {
