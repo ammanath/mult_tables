@@ -1,44 +1,62 @@
 import 'dart:math';
-// !usage : 
-// const countOfQuestions = 5;
-// const levelOfQuiz = 7; //random generator upto this level (not inclusive)
-// const startLevel = 0; //lowest digit in the quiz
+
+class Quiz {
+  
+
+  var allow12and21;
+  var countOfQuestions;
+  var levelOfQuiz;
+  final startLevel; //= _result[0];
+
+  var _result; //= getListForQuiz(5, 7, 0, true);
+  var firstListOfNumbers, secondListOfNumbers;
+
+  Quiz(this.countOfQuestions, this.levelOfQuiz, this.startLevel,
+      this.allow12and21){
+       _result = _getListForQuiz(countOfQuestions, levelOfQuiz, startLevel, allow12and21);
+      firstListOfNumbers = _result[0];
+      secondListOfNumbers = _result[1];
+      }
+
+// @param const countOfQuestions = 5; This is the length of the List returned
+// const levelOfQuiz = 7; //random generator upto this level (not inclusive). Max number in the quiz
+// const startLevel = 0; //lowest digit in the quiz, Min number in the quiz
 // const allow12and21 = true;
-List<List> getListForQuiz(
-    int countOfQuestions, int levelOfQuiz, int startLevel, bool allow12and21) {
+  List<List> _getListForQuiz(int countOfQuestions, int levelOfQuiz,
+      int startLevel, bool allow12and21) {
+    var l1 = <int>[];
+    var l2 = <int>[];
 
-  var l1 = <int>[];
-  var l2 = <int>[];
+    final _random = Random();
+    var _resultList = <String>[];
 
-  final r = Random();
-  var resultList = <String>[];
-
-  var t1, t2, comb, effort = 0;
-  while (l1.length < countOfQuestions && effort < 100) {
-    effort++;
-    t1 = r.nextInt(levelOfQuiz);
-    if (t1 < startLevel) {
-      t1 = t1 + startLevel;
-    }
-    t2 = r.nextInt(levelOfQuiz);
-    if (t2 < startLevel) {
-      t2 = t2 + startLevel;
-    }
-    if (allow12and21) {
-      comb = '$t1$t2';
-    } else {
-      if (t1 > t2) {
-        comb = '$t2$t1';
+    var _t1, _t2, _comb, _effort = 0;
+    while (l1.length < countOfQuestions && _effort < 100) {
+      _effort++;
+      _t1 = _random.nextInt(levelOfQuiz);
+      if (_t1 < startLevel) {
+        _t1 = _t1 + startLevel;
+      }
+      _t2 = _random.nextInt(levelOfQuiz);
+      if (_t2 < startLevel) {
+        _t2 = _t2 + startLevel;
+      }
+      if (allow12and21) {
+        _comb = '$_t1$_t2';
+      } else {
+        if (_t1 > _t2) {
+          _comb = '$_t2$_t1';
+        }
+      }
+      if (!_resultList.contains(_comb)) {
+        _resultList.add(_comb);
+        l1.add(_t1);
+        l2.add(_t2);
+      } else {
+        print('Skipping $_comb');
       }
     }
-    if (!resultList.contains(comb)) {
-      resultList.add(comb);
-      l1.add(t1);
-      l2.add(t2);
-    } else {
-      print('Skipping $comb');
-    }
-  }
 
-  return [l1, l2];
+    return [l1, l2];
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mult_tables/model/quizData.dart';
 
 class QuizPageWidget extends StatelessWidget {
   const QuizPageWidget({
@@ -52,10 +53,31 @@ class QuizQuestionsWidget extends StatefulWidget {
 }
 
 class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
+  final quiz = Quiz(5, 7, 0, true);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('text'),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: Container(
+            margin: const EdgeInsets.all(10.0),
+            alignment: Alignment.topCenter,
+            child: Column(
+              children: 
+                GetText(),
+            )),
+      ),
     );
   }
+
+  dynamic GetText(){
+    var texts = <Widget>[];
+    for (int i = 0; i < quiz.firstListOfNumbers.length; i++)
+                  {
+                    texts.add(Text(
+                        'Q$i : ${quiz.firstListOfNumbers[i]} * ${quiz.secondListOfNumbers[i]} = '));
+                  }
+                  return texts;
+  }
+
 }
