@@ -54,30 +54,72 @@ class QuizQuestionsWidget extends StatefulWidget {
 
 class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   final quiz = Quiz(5, 7, 0, true);
+  var score = 0;
+  var question = '';
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
         body: Container(
-            margin: const EdgeInsets.all(10.0),
+            margin: const EdgeInsets.all(40.0),
             alignment: Alignment.topCenter,
             child: Column(
-              children: 
-                getText(),
+              children: <Widget>[
+                new Padding(padding: EdgeInsets.all(20.0)),
+                new Text(widget.level),
+                new Text('Score : $score'),
+                new Text('Q: $question'),
+                Row(
+                  children: <Widget>[
+                    MaterialButton(
+                      child: new Text('Choice 1'),
+                      onPressed: null,
+                      minWidth: 120.0,
+                    ),
+                    MaterialButton(
+                      child: new Text('Choice 2'),
+                      onPressed: null,
+                      minWidth: 120.0,
+                    )
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    MaterialButton(
+                      child: new Text('Choice 3'),
+                      onPressed: null,
+                      minWidth: 120.0,
+                    ),
+                    MaterialButton(
+                      child: new Text('Choice 4'),
+                      onPressed: null,
+                      minWidth: 120.0,
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                  MaterialButton(
+                    child: new Text('Next'),
+                    onPressed: null,
+                    minWidth: 120.0,
+                  ),
+                ])
+              ],
             )),
       ),
     );
   }
 
-  dynamic getText(){
+  dynamic getAllQuizQuestions() {
     var texts = <Widget>[];
-    for (int i = 0; i < quiz.firstListOfNumbers.length; i++)
-                  {
-                    texts.add(Text(
-                        'Q$i : ${quiz.firstListOfNumbers[i]} * ${quiz.secondListOfNumbers[i]} = '));
-                  }
-                  return texts;
+    print('In getText, level is: ${widget.level}');
+    for (int i = 0; i < quiz.firstListOfNumbers.length; i++) {
+      texts.add(Text(
+          'Q$i : ${quiz.firstListOfNumbers[i]} * ${quiz.secondListOfNumbers[i]} = '));
+    }
+    return texts;
   }
-
 }
