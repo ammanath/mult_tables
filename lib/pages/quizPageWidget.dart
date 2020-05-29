@@ -56,8 +56,11 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   final quiz = Quiz(5, 7, 0, true);
   var score = 0;
   var question = '';
+  int questionNo = 0;
+
   @override
   Widget build(BuildContext context) {
+    question = 'Q$questionNo : ${quiz.firstListOfNumbers[questionNo]} * ${quiz.secondListOfNumbers[questionNo]} = ';
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -101,25 +104,36 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                  MaterialButton(
+                  RaisedButton(
                     child: new Text('Next'),
-                    onPressed: null,
-                    minWidth: 120.0,
-                  ),
-                ])
-              ],
-            )),
-      ),
-    );
-  }
+                    onPressed: updateQuestion(),
+                    color: Colors.red,
+                                      ),
+                                    ])
+                                  ],
+                                )),
+                          ),
+                        );
+                      }
+                    
+                      dynamic getAllQuizQuestions() {
+                        var texts = <Widget>[];
+                        print('In getText, level is: ${widget.level}');
+                        for (int i = 0; i < quiz.firstListOfNumbers.length; i++) {
+                          texts.add(Text(
+                              'Q$i : ${quiz.firstListOfNumbers[i]} * ${quiz.secondListOfNumbers[i]} = '));
+                        }
+                        return texts;
+                      }
+                    
+                      updateQuestion() {
+                        setState(() {
+                          if(questionNo == quiz.countOfQuestions-1){
+                            Dialog(child: Text('End!'));
+                          }else{
+                            questionNo++;
+                          }
+                        });
 
-  dynamic getAllQuizQuestions() {
-    var texts = <Widget>[];
-    print('In getText, level is: ${widget.level}');
-    for (int i = 0; i < quiz.firstListOfNumbers.length; i++) {
-      texts.add(Text(
-          'Q$i : ${quiz.firstListOfNumbers[i]} * ${quiz.secondListOfNumbers[i]} = '));
-    }
-    return texts;
-  }
+                      }
 }
