@@ -1,8 +1,6 @@
 import 'dart:math';
 
 class Quiz {
-  
-
   var allow12and21;
   var countOfQuestions;
   var levelOfQuiz;
@@ -12,20 +10,51 @@ class Quiz {
   var firstListOfNumbers, secondListOfNumbers;
 
   Quiz(this.countOfQuestions, this.levelOfQuiz, this.startLevel,
-      this.allow12and21){
-       _result = _getListForQuiz(countOfQuestions, levelOfQuiz, startLevel, allow12and21);
-      firstListOfNumbers = _result[0];
-      secondListOfNumbers = _result[1];
-      }
+      this.allow12and21) {
+    _result = _getListForQuiz(
+        countOfQuestions, levelOfQuiz, startLevel, allow12and21);
+    firstListOfNumbers = _result[0];
+    secondListOfNumbers = _result[1];
+  }
 
-List<int> getPossibleResults(int i, int j){
-  List<int> results = [];
-  results = List.generate(4, (index ) => i*j*Random().nextInt(index+i+j));
-  List<int> right = [i*j];
-  int index = Random().nextInt(4);
-  results.replaceRange(index, index, right);
-  return null;
-}
+  List<int> getPossibleResults(final int firstNo, final int secondNo) {
+    List<int> results = [];
+    const int listLength = 4;
+
+    results = List.generate(listLength,
+        (index) => firstNo * secondNo + Random().nextInt(secondNo + listLength));
+    print('Initial results : $results');
+    //ensure list has unique numbers - no repeats
+    //remove duplicate
+    List<int> uniqueResults = [
+      ...{...results}
+    ];
+    print('Unique results : $uniqueResults');
+    if (results.length != uniqueResults.length) {
+      int noOfDuplicates = results.length - uniqueResults.length;
+      int value = Random().nextInt(100);
+      print('NoOfDuplicates : $noOfDuplicates, value: $value');
+      for (int i = 0; i < noOfDuplicates; i++) {
+        if (!uniqueResults.contains(value)) {
+          uniqueResults.add(value);
+          print('Added $value to uniqueResults');
+        } else {
+          var nextInt = Random().nextInt(1000);
+          uniqueResults.add(value + nextInt);
+          print('Added $value + $nextInt to uniqueResults');
+        }
+      }
+    }
+
+    final int answer = firstNo * secondNo;
+    List<int> right = [answer];
+    if (!uniqueResults.contains(answer)) {
+      int index = Random().nextInt(4);
+      uniqueResults.replaceRange(index, index, right);
+      print('Inserting right answer, $answer at index: $index');
+    }
+    return uniqueResults;
+  }
 
 // @param const countOfQuestions = 5; This is the length of the List returned
 // const levelOfQuiz = 7; //random generator upto this level (not inclusive). Max number in the quiz
