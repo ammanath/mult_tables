@@ -21,8 +21,10 @@ class Quiz {
     List<int> results = [];
     const int listLength = 4;
 
-    results = List.generate(listLength,
-        (index) => firstNo * secondNo + Random().nextInt(secondNo + listLength));
+    results = List.generate(
+        listLength,
+        (index) =>
+            firstNo * secondNo + Random().nextInt(secondNo + listLength));
     print('Initial results : $results');
     //ensure list has unique numbers - no repeats
     //remove duplicate

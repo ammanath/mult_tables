@@ -61,8 +61,12 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   @override
   Widget build(BuildContext context) {
     question =
-        'Q${questionNo+1} : ${quiz.firstListOfNumbers[questionNo]} * ${quiz.secondListOfNumbers[questionNo]} = ';
-    List<int> results = quiz.getPossibleResults(quiz.firstListOfNumbers[questionNo],quiz.secondListOfNumbers[questionNo]);
+        'Q${questionNo + 1} : ${quiz.firstListOfNumbers[questionNo]} * ${quiz.secondListOfNumbers[questionNo]} = ';
+    List<int> results = quiz.getPossibleResults(
+        quiz.firstListOfNumbers[questionNo],
+        quiz.secondListOfNumbers[questionNo]);
+    int answer = quiz.firstListOfNumbers[questionNo] *
+        quiz.secondListOfNumbers[questionNo];
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -79,7 +83,9 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                   children: <Widget>[
                     MaterialButton(
                       child: new Text('Choice 1: ${results[0]}'),
-                      onPressed: () {},
+                      onPressed: () {
+                        choiceSelected(results[0]);
+                      },
                       minWidth: 120.0,
                     ),
                     MaterialButton(
@@ -107,12 +113,12 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RaisedButton(
-                        child: const Text('Enabled Button',
+                        child: const Text('Submit',
                             style: TextStyle(fontSize: 20)),
                         onPressed: () {
                           updateQuestion();
                         },
-                        color: Colors.red,
+                        color: Colors.green,
                       ),
                     ])
               ],
@@ -134,10 +140,15 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   updateQuestion() {
     setState(() {
       if (questionNo == quiz.countOfQuestions - 1) {
-        Dialog(child: Text('End!'));
+        AlertDialog(content: Text('End!'));
       } else {
         questionNo++;
       }
     });
+  }
+
+  void choiceSelected(int selection) {
+    //TODO : Update the choice selected
+    print('Choice selected: $selection');
   }
 }
