@@ -83,6 +83,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                 new Text('Score : $score'),
                 new Text('$question'),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     MaterialButton(
                       child: new Text('Choice 1: ${results[0]}'),
@@ -104,6 +105,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                   ],
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     MaterialButton(
                       child: new Text('Choice 3: ${results[2]}'),
@@ -129,10 +131,11 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                       RaisedButton(
                         child: const Text('Submit',
                             style: TextStyle(fontSize: 20)),
+                        
                         onPressed: () {
                           updateQuestion();
                         },
-                        color: Colors.green,
+                        color: selected==-1?Colors.grey:Colors.lime,
                       ),
                     ])
               ],
@@ -160,6 +163,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
         Navigator.push(context, new MaterialPageRoute(builder: (context)=> Summary(finalScore:score)));
       } else {
         questionNo++;
+        selected=-1;
       }
     });
   }
@@ -180,8 +184,13 @@ class Summary extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(
-      child: Scaffold(
-        body: Text('Summary'),
+      child: Container(
+        padding: EdgeInsets.all(40),
+        child: Center(
+          child: Scaffold(
+            body: Text('Results : $finalScore'),
+          ),
+        ),
       ) ,
       onWillPop: ()async=>false,);
   }
