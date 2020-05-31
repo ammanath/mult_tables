@@ -8,6 +8,7 @@ class Quiz {
 
   var _result; //= getListForQuiz(5, 7, 0, true);
   var firstListOfNumbers, secondListOfNumbers;
+  List<List<int>> arrayOfPossibleResults=[];
 
   Quiz(this.countOfQuestions, this.levelOfQuiz, this.startLevel,
       this.allow12and21) {
@@ -15,6 +16,10 @@ class Quiz {
         countOfQuestions, levelOfQuiz, startLevel, allow12and21);
     firstListOfNumbers = _result[0];
     secondListOfNumbers = _result[1];
+    for(int i=0;i<countOfQuestions;i++){
+      arrayOfPossibleResults.add(getPossibleResults(firstListOfNumbers[i],     secondListOfNumbers[i]));
+    }
+    
   }
 
   List<int> getPossibleResults(final int firstNo, final int secondNo) {

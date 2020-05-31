@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mult_tables/model/quizData.dart';
 
@@ -57,16 +58,18 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   var score = 0;
   var question = '';
   int questionNo = 0;
-
+  int answer = 0;
+  int selected=-1;
   @override
   Widget build(BuildContext context) {
     question =
         'Q${questionNo + 1} : ${quiz.firstListOfNumbers[questionNo]} * ${quiz.secondListOfNumbers[questionNo]} = ';
-    List<int> results = quiz.getPossibleResults(
-        quiz.firstListOfNumbers[questionNo],
-        quiz.secondListOfNumbers[questionNo]);
-    int answer = quiz.firstListOfNumbers[questionNo] *
+    
+    List<int> results = quiz.arrayOfPossibleResults[questionNo];
+
+    answer = quiz.firstListOfNumbers[questionNo] *
         quiz.secondListOfNumbers[questionNo];
+    
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -86,11 +89,16 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                       onPressed: () {
                         choiceSelected(results[0]);
                       },
+                      color: selected==results[0]?Colors.teal:Colors.blueGrey,
+                      
                       minWidth: 120.0,
                     ),
                     MaterialButton(
                       child: new Text('Choice 2: ${results[1]}'),
-                      onPressed: () {},
+                      onPressed: () {
+                        choiceSelected(results[1]);
+                      },
+                      color: selected==results[1]?Colors.teal:Colors.blueGrey,
                       minWidth: 120.0,
                     )
                   ],
@@ -99,12 +107,18 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                   children: <Widget>[
                     MaterialButton(
                       child: new Text('Choice 3: ${results[2]}'),
-                      onPressed: () {},
+                      onPressed: () {
+                        choiceSelected(results[2]);
+                      },
+                      color: selected==results[2]?Colors.teal:Colors.blueGrey,
                       minWidth: 120.0,
                     ),
                     MaterialButton(
                       child: new Text('Choice 4: ${results[3]}'),
-                      onPressed: () {},
+                      onPressed: () {
+                        choiceSelected(results[3]);
+                      },
+                      color: selected==results[3]?Colors.teal:Colors.blueGrey,
                       minWidth: 120.0,
                     )
                   ],
@@ -139,8 +153,11 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
 
   updateQuestion() {
     setState(() {
+      if(answer==selected){
+        score++;
+      }
       if (questionNo == quiz.countOfQuestions - 1) {
-        AlertDialog(content: Text('End!'));
+        Navigator.push(context, new MaterialPageRoute(builder: (context)=> Summary(finalScore:score)));
       } else {
         questionNo++;
       }
@@ -148,7 +165,25 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   }
 
   void choiceSelected(int selection) {
-    //TODO : Update the choice selected
     print('Choice selected: $selection');
+    setState(() {
+      selected = selection;
+    });
   }
+
+}
+
+class Summary extends StatelessWidget{
+  final int finalScore;
+  Summary({Key key, @required this.finalScore}):super(key:key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new WillPopScope(
+      child: Scaffold(
+        body: Text('Summary'),
+      ) ,
+      onWillPop: ()async=>false,);
+  }
+
 }
