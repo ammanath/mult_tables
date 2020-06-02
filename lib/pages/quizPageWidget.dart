@@ -60,13 +60,14 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   int questionNo = 0;
   int answer = 0;
   int selected=-1;
+  double _progressValue=0;
   @override
   Widget build(BuildContext context) {
     question =
         'Q${questionNo + 1} : ${quiz.firstListOfNumbers[questionNo]} * ${quiz.secondListOfNumbers[questionNo]} = ';
     
     List<int> results = quiz.arrayOfPossibleResults[questionNo];
-
+    _progressValue=(questionNo+1)*100/5;
     answer = quiz.firstListOfNumbers[questionNo] *
         quiz.secondListOfNumbers[questionNo];
     
@@ -82,6 +83,9 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                 new Text('Level : ${widget.level}'),
                 new Text('Score : $score'),
                 new Text('$question'),
+                LinearProgressIndicator(
+                  value: _progressValue,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
