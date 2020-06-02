@@ -67,7 +67,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
         'Q${questionNo + 1} : ${quiz.firstListOfNumbers[questionNo]} * ${quiz.secondListOfNumbers[questionNo]} = ';
     
     List<int> results = quiz.arrayOfPossibleResults[questionNo];
-    _progressValue=(questionNo+1)*100/5;
+    _progressValue=(questionNo+1)/5;
     answer = quiz.firstListOfNumbers[questionNo] *
         quiz.secondListOfNumbers[questionNo];
     
@@ -79,7 +79,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
             alignment: Alignment.topCenter,
             child: Column(
               children: <Widget>[
-                new Padding(padding: EdgeInsets.all(20.0)),
+                new Padding(padding: EdgeInsets.all(20.0)),   
                 new Text('Level : ${widget.level}'),
                 new Text('Score : $score'),
                 new Text('$question'),
