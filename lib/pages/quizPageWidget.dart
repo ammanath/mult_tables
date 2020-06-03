@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/model/quizData.dart';
 
-enum Level { Easy, Medium, Difficult }
+
+
 class QuizPageWidget extends StatelessWidget {
   const QuizPageWidget({
     Key key,
@@ -68,7 +70,8 @@ class QuizQuestionsWidget extends StatefulWidget {
 
 class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   static const countOfQuestions = 8;
-  final quiz = Quiz(countOfQuestions, 17, 0, true);
+  Level level = widget.quizLevel;
+  Quiz quiz = null;//Quiz(countOfQuestions, 17, 0, true);
   var score = 0;
   var question = '';
   int questionNo = 0;
@@ -80,6 +83,9 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   Widget build(BuildContext context) {
     Level level = widget.quizLevel;
     String levelDesc = describeEnum(level);
+    if(quiz==null){
+      quiz = Quiz(countOfQuestions, level, 0, true);
+    }
     question =
         'Question ${questionNo + 1} of $countOfQuestions :';
     var q1 = '${quiz.firstListOfNumbers[questionNo]} * ${quiz.secondListOfNumbers[questionNo]} = ';

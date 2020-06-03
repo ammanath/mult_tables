@@ -1,9 +1,10 @@
 import 'dart:math';
+import 'package:mult_tables/model/enumLevel.dart';
 
 class Quiz {
   var allow12and21;
   var countOfQuestions;
-  var levelOfQuiz;
+  Level levelOfQuiz;
   final startLevel; //= _result[0];
 
   var _result; //= getListForQuiz(5, 7, 0, true);
@@ -64,10 +65,10 @@ class Quiz {
   }
 
 // @param const countOfQuestions = 5; This is the length of the List returned
-// const levelOfQuiz = 7; //random generator upto this level (not inclusive). Max number in the quiz
+// const levelOfQuiz = enum.index *10 + 10; //random generator upto this level (not inclusive). Max number in the quiz
 // const startLevel = 0; //lowest digit in the quiz, Min number in the quiz
 // const allow12and21 = true;
-  List<List> _getListForQuiz(int countOfQuestions, int levelOfQuiz,
+  List<List> _getListForQuiz(int countOfQuestions, Level levelOfQuiz,
       int startLevel, bool allow12and21) {
     var l1 = <int>[];
     var l2 = <int>[];
@@ -76,13 +77,16 @@ class Quiz {
     var _resultList = <String>[];
 
     var _t1, _t2, _comb, _effort = 0;
+
+    int generateNumsUpto=(levelOfQuiz.index *10)+10;
+
     while (l1.length < countOfQuestions && _effort < 100) {
       _effort++;
-      _t1 = _random.nextInt(levelOfQuiz);
+      _t1 = _random.nextInt(generateNumsUpto);
       if (_t1 < startLevel) {
         _t1 = _t1 + startLevel;
       }
-      _t2 = _random.nextInt(levelOfQuiz);
+      _t2 = _random.nextInt(generateNumsUpto);
       if (_t2 < startLevel) {
         _t2 = _t2 + startLevel;
       }
