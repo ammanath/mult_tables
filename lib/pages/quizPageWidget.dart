@@ -54,7 +54,8 @@ class QuizQuestionsWidget extends StatefulWidget {
 }
 
 class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
-  final quiz = Quiz(5, 17, 0, true);
+  static const countOfQuestions = 8;
+  final quiz = Quiz(countOfQuestions, 17, 0, true);
   var score = 0;
   var question = '';
   int questionNo = 0;
@@ -64,10 +65,11 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   @override
   Widget build(BuildContext context) {
     question =
-        'Q${questionNo + 1} : ${quiz.firstListOfNumbers[questionNo]} * ${quiz.secondListOfNumbers[questionNo]} = ';
+        'Question ${questionNo + 1} of $countOfQuestions :';
+    var q1 = '${quiz.firstListOfNumbers[questionNo]} * ${quiz.secondListOfNumbers[questionNo]} = ';
     
     List<int> results = quiz.arrayOfPossibleResults[questionNo];
-    _progressValue=(questionNo+1)/5;
+    _progressValue=(questionNo+1)/countOfQuestions;
     answer = quiz.firstListOfNumbers[questionNo] *
         quiz.secondListOfNumbers[questionNo];
     
@@ -82,10 +84,24 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                 new Padding(padding: EdgeInsets.all(20.0)),   
                 new Text('Level : ${widget.level}'),
                 new Text('Score : $score'),
-                new Text('$question'),
+                new Text('$question',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.blue,
+
+                ),
+                ),
+                new Padding(padding: EdgeInsets.all(6.0)), 
+                new Text('$q1',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.deepOrange,
+                ),),
+                new Padding(padding: EdgeInsets.all(8.0)),   
                 LinearProgressIndicator(
                   value: _progressValue,
                 ),
+                new Padding(padding: EdgeInsets.all(20.0)),   
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -129,6 +145,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                     )
                   ],
                 ),
+                new Padding(padding: EdgeInsets.all(20.0)),   
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
