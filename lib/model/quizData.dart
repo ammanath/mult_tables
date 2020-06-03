@@ -70,6 +70,8 @@ class Quiz {
 // const allow12and21 = true;
   List<List> _getListForQuiz(int countOfQuestions, Level levelOfQuiz,
       int startLevel, bool allow12and21) {
+
+    //TODO: logic to generate numbers from start level to top level
     var l1 = <int>[];
     var l2 = <int>[];
 
