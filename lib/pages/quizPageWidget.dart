@@ -2,14 +2,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mult_tables/model/quizData.dart';
 
+enum Level { Easy, Medium, Difficult }
 class QuizPageWidget extends StatelessWidget {
   const QuizPageWidget({
     Key key,
   }) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
-    var level = 'Easy';
+    const levelEasy = 'Easy';
+    const levelMedium = 'Medium';
+    const levelDiff = 'Difficult';
+    
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -20,34 +24,43 @@ class QuizPageWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             RaisedButton(
+
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => QuizQuestionsWidget(level)),
-                );
+                navigateToQuiz(context, Level.Easy);
               },
-              child: Text(level),
+              child: Text('$levelEasy (0 to 10)'),
             ),
             RaisedButton(
-              onPressed: null,
-              child: Text('Medium'),
+              onPressed: () {
+                navigateToQuiz(context, Level.Medium);
+              },
+              child: Text('$levelMedium (6 to 20)'),
             ),
             RaisedButton(
-              onPressed: null,
-              child: Text('Difficult'),
+              onPressed: () {
+                navigateToQuiz(context, Level.Difficult);
+              },
+              child: Text('$levelDiff (12 to 80)'),
             ),
           ],
         )),
       ),
     );
   }
+
+  void navigateToQuiz(BuildContext context, Level level) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => QuizQuestionsWidget(level)),
+    );
+  }
 }
 
 class QuizQuestionsWidget extends StatefulWidget {
-  final level;
+  final Level quizLevel;
 
-  QuizQuestionsWidget(this.level);
+  QuizQuestionsWidget(this.quizLevel);
 
   @override
   _QuizQuestionsWidgetState createState() => _QuizQuestionsWidgetState();
@@ -62,8 +75,11 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   int answer = 0;
   int selected=-1;
   double _progressValue=0;
+  
   @override
   Widget build(BuildContext context) {
+    Level level = widget.quizLevel;
+    String levelDesc = describeEnum(level);
     question =
         'Question ${questionNo + 1} of $countOfQuestions :';
     var q1 = '${quiz.firstListOfNumbers[questionNo]} * ${quiz.secondListOfNumbers[questionNo]} = ';
@@ -82,8 +98,10 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
             child: Column(
               children: <Widget>[
                 new Padding(padding: EdgeInsets.all(20.0)),   
-                new Text('Level : ${widget.level}'),
+                new Text('Level : $levelDesc'),
+                new Padding(padding: EdgeInsets.all(6.0)), 
                 new Text('Score : $score'),
+                new Padding(padding: EdgeInsets.all(6.0)), 
                 new Text('$question',
                 style: TextStyle(
                   fontSize: 18,
@@ -154,7 +172,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                             style: TextStyle(fontSize: 20)),
                         
                         onPressed: () {
-                          updateQuestion();
+                          selected==-1?0:updateQuestion();
                         },
                         color: selected==-1?Colors.grey:Colors.lime,
                       ),
@@ -167,7 +185,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
 
   dynamic getAllQuizQuestions() {
     var texts = <Widget>[];
-    print('In getText, level is: ${widget.level}');
+    print('In getText, level is: ${widget.quizLevel}');
     for (int i = 0; i < quiz.firstListOfNumbers.length; i++) {
       texts.add(Text(
           'Q$i : ${quiz.firstListOfNumbers[i]} * ${quiz.secondListOfNumbers[i]} = '));
