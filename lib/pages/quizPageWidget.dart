@@ -70,7 +70,7 @@ class QuizQuestionsWidget extends StatefulWidget {
 
 class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   static const countOfQuestions = 8;
-  Level level = widget.quizLevel;
+  Level level;// = widget.quizLevel;
   Quiz quiz = null;//Quiz(countOfQuestions, 17, 0, true);
   var score = 0;
   var question = '';
@@ -78,14 +78,26 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   int answer = 0;
   int selected=-1;
   double _progressValue=0;
+
+  @override
+  void initState() {
+    super.initState();
+    this.getQuizData();
+  }
   
+  void getQuizData() {
+    level = widget.quizLevel;
+    quiz=   Quiz(countOfQuestions, level, 0, true);
+      setState(() {
+        questionNo = 0;
+      });
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    Level level = widget.quizLevel;
     String levelDesc = describeEnum(level);
-    if(quiz==null){
-      quiz = Quiz(countOfQuestions, level, 0, true);
-    }
+    
     question =
         'Question ${questionNo + 1} of $countOfQuestions :';
     var q1 = '${quiz.firstListOfNumbers[questionNo]} * ${quiz.secondListOfNumbers[questionNo]} = ';
