@@ -87,7 +87,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   
   void getQuizData() {
     level = widget.quizLevel;
-    quiz=   Quiz(countOfQuestions, level, 0, true);
+    quiz=   Quiz(countOfQuestions, level,  true);
       setState(() {
         questionNo = 0;
       });
