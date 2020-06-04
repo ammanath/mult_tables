@@ -30,19 +30,19 @@ class QuizPageWidget extends StatelessWidget {
               onPressed: () {
                 navigateToQuiz(context, Level.Easy);
               },
-              child: Text('$levelEasy (0 to 10)'),
+              child: Text('$levelEasy (0 to 5)'),
             ),
             RaisedButton(
               onPressed: () {
                 navigateToQuiz(context, Level.Medium);
               },
-              child: Text('$levelMedium (6 to 20)'),
+              child: Text('$levelMedium (5 to 12)'),
             ),
             RaisedButton(
               onPressed: () {
                 navigateToQuiz(context, Level.Difficult);
               },
-              child: Text('$levelDiff (12 to 80)'),
+              child: Text('$levelDiff (8 to 15)'),
             ),
           ],
         )),

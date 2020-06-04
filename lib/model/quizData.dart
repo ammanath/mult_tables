@@ -71,9 +71,11 @@ class Quiz {
     var _num1, _num2, _comb;
     int _effort = 0;
 
-    int generateNumsUpto = 12;
     int generateNumsFrom =
         levelOfQuiz == Level.Easy ? 0 : levelOfQuiz == Level.Medium ? 5 : 8;
+    int generateNumsUpto =
+        levelOfQuiz == Level.Easy ? 5 : levelOfQuiz == Level.Medium ? 12 : 15;
+
     if ((generateNumsFrom + 3) > generateNumsUpto) {
       generateNumsUpto = generateNumsUpto + 3;
     }
@@ -114,6 +116,3 @@ int getRandomNumberInRange(int generateNumsFrom, int generateNumsUpto) {
   int num = _random.nextInt(range) + generateNumsFrom;
   return num;
 }
-
-
-
