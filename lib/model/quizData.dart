@@ -24,17 +24,41 @@ class Quiz {
 
   List<int> getPossibleResults(final int firstNo, final int secondNo) {
     List<int> results = [];
+    List<int> resultsUpdated = [];
+    final int answer = firstNo * secondNo;
     const int listLength = 4;
 
     results = List.generate(
         listLength,
         (index) =>
             firstNo * secondNo + Random().nextInt(secondNo + listLength));
+
+    //make the answers more difficult by ensuring the last digit is the same as the answer
+    if (answer > 9) {
+      int modified;
+      String ans = answer.toString().substring(answer.toString().length - 1);
+      results.forEach((element) {
+        modified = element;
+        if(element>9){
+        modified = int.parse(
+            element.toString().substring(0, element.toString().length - 1) +
+                ans);
+        }
+        print('Replacing $element with $modified');
+        resultsUpdated.add(modified);
+      });
+      
+      if (results.length == resultsUpdated.length) {
+        results = resultsUpdated;
+      }
+    }
+
     //ensure list has unique numbers - no repeats
     //remove duplicate
     List<int> uniqueResults = [
       ...{...results}
     ];
+
     if (results.length != uniqueResults.length) {
       int noOfDuplicates = results.length - uniqueResults.length;
       int value = Random().nextInt(100);
@@ -48,7 +72,6 @@ class Quiz {
       }
     }
 
-    final int answer = firstNo * secondNo;
     List<int> right = [answer];
     if (!uniqueResults.contains(answer)) {
       int index = Random().nextInt(4);
