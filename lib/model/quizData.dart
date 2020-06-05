@@ -1,9 +1,11 @@
 import 'dart:math';
 import 'package:mult_tables/model/enumLevel.dart';
 
+
+//TODO:Save selections and results 
 class Quiz {
-  var allow12and21;
-  var countOfQuestions;
+  bool allow12and21;
+  int countOfQuestions;
   Level levelOfQuiz;
 
   var _result; //= getListForQuiz(5, 7, 0, true);
@@ -18,11 +20,11 @@ class Quiz {
 
     for (int i = 0; i < countOfQuestions; i++) {
       arrayOfPossibleResults.add(
-          getPossibleResults(firstListOfNumbers[i], secondListOfNumbers[i]));
+          _getPossibleResults(firstListOfNumbers[i], secondListOfNumbers[i]));
     }
   }
 
-  List<int> getPossibleResults(final int firstNo, final int secondNo) {
+  List<int> _getPossibleResults(final int firstNo, final int secondNo) {
     List<int> results = [];
     List<int> resultsUpdated = [];
     final int answer = firstNo * secondNo;
@@ -44,7 +46,6 @@ class Quiz {
             element.toString().substring(0, element.toString().length - 1) +
                 ans);
         }
-        print('Replacing $element with $modified');
         resultsUpdated.add(modified);
       });
       

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/model/quizData.dart';
 
-
-
 class QuizPageWidget extends StatelessWidget {
   const QuizPageWidget({
     Key key,
@@ -142,7 +140,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     MaterialButton(
-                      child: new Text('Choice 1: ${results[0]}'),
+                      child: new Text('${results[0]}'),
                       onPressed: () {
                         choiceSelected(results[0]);
                       },
@@ -151,7 +149,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                       minWidth: 120.0,
                     ),
                     MaterialButton(
-                      child: new Text('Choice 2: ${results[1]}'),
+                      child: new Text('${results[1]}'),
                       onPressed: () {
                         choiceSelected(results[1]);
                       },
@@ -164,7 +162,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     MaterialButton(
-                      child: new Text('Choice 3: ${results[2]}'),
+                      child: new Text('${results[2]}'),
                       onPressed: () {
                         choiceSelected(results[2]);
                       },
@@ -172,7 +170,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                       minWidth: 120.0,
                     ),
                     MaterialButton(
-                      child: new Text('Choice 4: ${results[3]}'),
+                      child: new Text('${results[3]}'),
                       onPressed: () {
                         choiceSelected(results[3]);
                       },
