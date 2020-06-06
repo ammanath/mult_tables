@@ -98,12 +98,12 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     
     question =
         'Question ${questionNo + 1} of $countOfQuestions :';
-    var q1 = '${quiz.firstListOfNumbers[questionNo]} * ${quiz.secondListOfNumbers[questionNo]} = ';
     
-    List<int> results = quiz.arrayOfPossibleResults[questionNo];
+    var q1 = '${quiz.questions[questionNo].num1} * ${quiz.questions[questionNo].num2} = ';
+
+    List<int> results = quiz.questions[questionNo].getAllPossibleAnswers(); //quiz.arrayOfPossibleResults[questionNo];
     _progressValue=(questionNo+1)/countOfQuestions;
-    answer = quiz.firstListOfNumbers[questionNo] *
-        quiz.secondListOfNumbers[questionNo];
+    answer = quiz.questions[questionNo].rightAns;
     
     return WillPopScope(
       onWillPop: () async => false,
@@ -199,20 +199,12 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     );
   }
 
-  dynamic getAllQuizQuestions() {
-    var texts = <Widget>[];
-    print('In getText, level is: ${widget.quizLevel}');
-    for (int i = 0; i < quiz.firstListOfNumbers.length; i++) {
-      texts.add(Text(
-          'Q$i : ${quiz.firstListOfNumbers[i]} * ${quiz.secondListOfNumbers[i]} = '));
-    }
-    return texts;
-  }
-
   updateQuestion() {
+    quiz.questions[questionNo].selected = selected;
     setState(() {
       if(answer==selected){
         score++;
+        quiz.totalScore = score;
       }
       if (questionNo == quiz.countOfQuestions - 1) {
         Navigator.push(context, new MaterialPageRoute(builder: (context)=> Summary(finalScore:score)));
