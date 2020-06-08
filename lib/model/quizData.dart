@@ -108,8 +108,12 @@ class Question {
 
   int get rightAns => num1 * num2;
 
-  List<int> getAllPossibleAnswers() =>
-      answers == null ? _getPossibleResults(num1, num2) : answers;
+  List<int> getAllPossibleAnswers(){
+      if(answers == null){
+        answers = _getPossibleResults(num1, num2);
+      }
+      return answers;   
+  }
 
   List<int> _getPossibleResults(final int firstNo, final int secondNo) {
     List<int> results = [];

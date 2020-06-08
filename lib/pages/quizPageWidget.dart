@@ -95,13 +95,12 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   @override
   Widget build(BuildContext context) {
     String levelDesc = describeEnum(level);
-    
     question =
         'Question ${questionNo + 1} of $countOfQuestions :';
     
     var q1 = '${quiz.questions[questionNo].num1} * ${quiz.questions[questionNo].num2} = ';
 
-    List<int> results = quiz.questions[questionNo].getAllPossibleAnswers(); //quiz.arrayOfPossibleResults[questionNo];
+    List<int> results = quiz.questions[questionNo].getAllPossibleAnswers(); 
     _progressValue=(questionNo+1)/countOfQuestions;
     answer = quiz.questions[questionNo].rightAns;
     
