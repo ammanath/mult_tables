@@ -169,6 +169,9 @@ class Question {
       int index = Random().nextInt(4);
       uniqueResults.replaceRange(index, index, right);
     }
+    
+    uniqueResults.shuffle();
+
     return uniqueResults;
   }
 }
