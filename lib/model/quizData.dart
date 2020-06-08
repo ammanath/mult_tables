@@ -14,7 +14,7 @@ class Quiz {
 
   List<List<int>> arrayOfPossibleResults = [];
 
-  int totalScore;
+  int totalScore=0;
 
   Quiz(this.countOfQuestions, this.levelOfQuiz, this.allow12and21) {
     _result = _getQuestionsForQuiz(countOfQuestions, levelOfQuiz, allow12and21);

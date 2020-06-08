@@ -70,7 +70,6 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   static const countOfQuestions = 8;
   Level level;// = widget.quizLevel;
   Quiz quiz = null;//Quiz(countOfQuestions, 17, 0, true);
-  var score = 0;
   var question = '';
   int questionNo = 0;
   int answer = 0;
@@ -101,7 +100,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     var q1 = '${quiz.questions[questionNo].num1} * ${quiz.questions[questionNo].num2} = ';
 
     List<int> results = quiz.questions[questionNo].getAllPossibleAnswers(); 
-    _progressValue=(questionNo+1)/countOfQuestions;
+    _progressValue=(questionNo)/countOfQuestions;
     answer = quiz.questions[questionNo].rightAns;
     
     return WillPopScope(
@@ -115,7 +114,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                 new Padding(padding: EdgeInsets.all(20.0)),   
                 new Text('Level : $levelDesc'),
                 new Padding(padding: EdgeInsets.all(6.0)), 
-                new Text('Score : $score'),
+                new Text('Score : ${quiz.totalScore ?? 0}'),
                 new Padding(padding: EdgeInsets.all(6.0)), 
                 new Text('$question',
                 style: TextStyle(
@@ -202,11 +201,10 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     quiz.questions[questionNo].selected = selected;
     setState(() {
       if(answer==selected){
-        score++;
-        quiz.totalScore = score;
+        quiz.totalScore++;
       }
       if (questionNo == quiz.countOfQuestions - 1) {
-        Navigator.push(context, new MaterialPageRoute(builder: (context)=> Summary(finalScore:score)));
+        Navigator.push(context, new MaterialPageRoute(builder: (context)=> Summary(finalScore:quiz.totalScore)));
       } else {
         questionNo++;
         selected=-1;
