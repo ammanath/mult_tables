@@ -14,7 +14,7 @@ class Quiz {
 
   List<List<int>> arrayOfPossibleResults = [];
 
-  int totalScore=0;
+  int totalScore = 0;
 
   Quiz(this.countOfQuestions, this.levelOfQuiz, this.allow12and21) {
     _result = _getQuestionsForQuiz(countOfQuestions, levelOfQuiz, allow12and21);
@@ -23,11 +23,9 @@ class Quiz {
     _secondListOfNumbers = _result[1];
 
     for (int count = 0; count < countOfQuestions; count++) {
-      questions
-          .add(Question(_firstListOfNumbers[count], _secondListOfNumbers[count]));
+      questions.add(
+          Question(_firstListOfNumbers[count], _secondListOfNumbers[count]));
     }
-
-    
 
     // for (int i = 0; i < countOfQuestions; i++) {
     //   arrayOfPossibleResults.add(
@@ -57,8 +55,6 @@ class Quiz {
     if ((generateNumsFrom + 3) > generateNumsUpto) {
       generateNumsUpto = generateNumsUpto + 3;
     }
-    print(
-        'Random numbers are being generated from $generateNumsFrom to $generateNumsUpto');
 
     while (l1.length < countOfQuestions && _effort < 100) {
       _effort++;
@@ -77,13 +73,13 @@ class Quiz {
         _resultList.add(_comb);
         l1.add(_num1);
         l2.add(_num2);
-      } else {
-        print('Skipping $_comb');
       }
-      print('Effort spent is $_effort');
     }
 
-    print('question list is: $l1 and $l2');
+    if (_effort > 98) {
+      print("Possible error , effor at $_effort, l1 = $l1 , l2 = $l2");
+    }
+
     return [l1, l2];
   }
 
@@ -108,26 +104,28 @@ class Question {
 
   int get rightAns => num1 * num2;
 
-  List<int> getAllPossibleAnswers(){
-      if(answers == null){
-        answers = _getPossibleResults(num1, num2);
-      }
-      return answers;   
+  List<int> getAllPossibleAnswers() {
+    if (answers == null) {
+      answers = _getPossibleResults(num1, num2);
+    }
+    return answers;
   }
 
   List<int> _getPossibleResults(final int firstNo, final int secondNo) {
-    List<int> results = [];
     List<int> resultsUpdated = [];
     final int answer = firstNo * secondNo;
     const int listLength = 4;
+    List<int> results = List<int>(4);
 
-    results = List.generate(
-        listLength,
-        (index) =>
-            firstNo * secondNo + Random().nextInt(secondNo + listLength));
+    results[0] = answer + 5;
+    results[1] = answer == 0
+        ? firstNo * secondNo + Random().nextInt(secondNo + listLength)
+        : answer > 30 ? answer - 10 : answer - 1;
+    results[2] = answer;
+    results[3] = answer + 10;
 
     //make the answers more difficult by ensuring the last digit is the same as the answer
-    if (answer > 9) {
+    if (answer > 30) {
       int modified;
       String ans = answer.toString().substring(answer.toString().length - 1);
       results.forEach((element) {
@@ -137,7 +135,11 @@ class Question {
               element.toString().substring(0, element.toString().length - 1) +
                   ans);
         }
-        resultsUpdated.add(modified);
+        if (results.contains(modified)) {
+          resultsUpdated.add(element);
+        } else {
+          resultsUpdated.add(modified);
+        }
       });
 
       if (results.length == resultsUpdated.length) {
@@ -153,25 +155,39 @@ class Question {
 
     if (results.length != uniqueResults.length) {
       int noOfDuplicates = results.length - uniqueResults.length;
-      int value = Random().nextInt(100);
+      int value = _getValue(uniqueResults);
+
       for (int i = 0; i < noOfDuplicates; i++) {
         if (!uniqueResults.contains(value)) {
           uniqueResults.add(value);
+          value = _getValue(uniqueResults);
         } else {
-          var nextInt = Random().nextInt(1000);
-          uniqueResults.add(value + nextInt);
+          var nextInt = uniqueResults.reduce(max) + 10;
+          uniqueResults.add(nextInt);
         }
       }
     }
 
-    List<int> right = [answer];
+    int right = answer;
     if (!uniqueResults.contains(answer)) {
-      int index = Random().nextInt(4);
-      uniqueResults.replaceRange(index, index, right);
+      int index = Random().nextInt(3);
+      uniqueResults[index] = right;
     }
-    
+
     uniqueResults.shuffle();
 
     return uniqueResults;
+  }
+
+  int _getValue(List<int> uniqueResults) {
+    int value;
+    int max1 = uniqueResults.reduce(max);
+    int min1 = uniqueResults.reduce(min);
+    if (min1 > 10) {
+      value = min1 - Random().nextInt(3) - 2;
+    } else {
+      value = max1 + Random().nextInt(5) + 5;
+    }
+    return value;
   }
 }
