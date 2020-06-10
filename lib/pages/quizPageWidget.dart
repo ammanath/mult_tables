@@ -1,3 +1,4 @@
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mult_tables/model/enumLevel.dart';
@@ -7,13 +8,13 @@ class QuizPageWidget extends StatelessWidget {
   const QuizPageWidget({
     Key key,
   }) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     const levelEasy = 'Easy';
     const levelMedium = 'Medium';
     const levelDiff = 'Difficult';
-    
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -24,7 +25,6 @@ class QuizPageWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             RaisedButton(
-
               onPressed: () {
                 navigateToQuiz(context, Level.Easy);
               },
@@ -51,8 +51,7 @@ class QuizPageWidget extends StatelessWidget {
   void navigateToQuiz(BuildContext context, Level level) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => QuizQuestionsWidget(level)),
+      MaterialPageRoute(builder: (context) => QuizQuestionsWidget(level)),
     );
   }
 }
@@ -68,41 +67,40 @@ class QuizQuestionsWidget extends StatefulWidget {
 
 class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   static const countOfQuestions = 8;
-  Level level;// = widget.quizLevel;
-  Quiz quiz = null;//Quiz(countOfQuestions, 17, 0, true);
+  Level level; // = widget.quizLevel;
+  Quiz quiz = null; //Quiz(countOfQuestions, 17, 0, true);
   var question = '';
   int questionNo = 0;
   int answer = 0;
-  int selected=-1;
-  double _progressValue=0;
+  int selected = -1;
+  double _progressValue = 0;
 
   @override
   void initState() {
     super.initState();
     this.getQuizData();
   }
-  
+
   void getQuizData() {
     level = widget.quizLevel;
-    quiz=   Quiz(countOfQuestions, level,  true);
-      setState(() {
-        questionNo = 0;
-      });
+    quiz = Quiz(countOfQuestions, level, true);
+    setState(() {
+      questionNo = 0;
+    });
   }
-
 
   @override
   Widget build(BuildContext context) {
     String levelDesc = describeEnum(level);
-    question =
-        'Question ${questionNo + 1} of $countOfQuestions :';
-    
-    var q1 = '${quiz.questions[questionNo].num1} * ${quiz.questions[questionNo].num2} = ';
+    question = 'Question ${questionNo + 1} of $countOfQuestions :';
 
-    List<int> results = quiz.questions[questionNo].getAllPossibleAnswers(); 
-    _progressValue=(questionNo)/countOfQuestions;
+    var q1 =
+        '${quiz.questions[questionNo].num1} * ${quiz.questions[questionNo].num2} = ';
+
+    List<int> results = quiz.questions[questionNo].getAllPossibleAnswers();
+    _progressValue = (questionNo) / countOfQuestions;
     answer = quiz.questions[questionNo].rightAns;
-    
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -111,29 +109,31 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
             alignment: Alignment.topCenter,
             child: Column(
               children: <Widget>[
-                new Padding(padding: EdgeInsets.all(20.0)),   
+                new Padding(padding: EdgeInsets.all(20.0)),
                 new Text('Level : $levelDesc'),
-                new Padding(padding: EdgeInsets.all(6.0)), 
+                new Padding(padding: EdgeInsets.all(6.0)),
                 new Text('Score : ${quiz.totalScore ?? 0}'),
-                new Padding(padding: EdgeInsets.all(6.0)), 
-                new Text('$question',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.blue,
-
+                new Padding(padding: EdgeInsets.all(6.0)),
+                new Text(
+                  '$question',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.blue,
+                  ),
                 ),
+                new Padding(padding: EdgeInsets.all(6.0)),
+                new Text(
+                  '$q1',
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.deepOrange,
+                  ),
                 ),
-                new Padding(padding: EdgeInsets.all(6.0)), 
-                new Text('$q1',
-                style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.deepOrange,
-                ),),
-                new Padding(padding: EdgeInsets.all(8.0)),   
+                new Padding(padding: EdgeInsets.all(8.0)),
                 LinearProgressIndicator(
                   value: _progressValue,
                 ),
-                new Padding(padding: EdgeInsets.all(20.0)),   
+                new Padding(padding: EdgeInsets.all(20.0)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -142,8 +142,9 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                       onPressed: () {
                         choiceSelected(results[0]);
                       },
-                      color: selected==results[0]?Colors.teal:Colors.blueGrey,
-                      
+                      color: selected == results[0]
+                          ? Colors.teal
+                          : Colors.blueGrey,
                       minWidth: 120.0,
                     ),
                     MaterialButton(
@@ -151,7 +152,9 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                       onPressed: () {
                         choiceSelected(results[1]);
                       },
-                      color: selected==results[1]?Colors.teal:Colors.blueGrey,
+                      color: selected == results[1]
+                          ? Colors.teal
+                          : Colors.blueGrey,
                       minWidth: 120.0,
                     )
                   ],
@@ -164,7 +167,9 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                       onPressed: () {
                         choiceSelected(results[2]);
                       },
-                      color: selected==results[2]?Colors.teal:Colors.blueGrey,
+                      color: selected == results[2]
+                          ? Colors.teal
+                          : Colors.blueGrey,
                       minWidth: 120.0,
                     ),
                     MaterialButton(
@@ -172,23 +177,53 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                       onPressed: () {
                         choiceSelected(results[3]);
                       },
-                      color: selected==results[3]?Colors.teal:Colors.blueGrey,
+                      color: selected == results[3]
+                          ? Colors.teal
+                          : Colors.blueGrey,
                       minWidth: 120.0,
                     )
                   ],
                 ),
-                new Padding(padding: EdgeInsets.all(20.0)),   
+                new Padding(padding: EdgeInsets.all(20.0)),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RaisedButton(
                         child: const Text('Submit',
                             style: TextStyle(fontSize: 20)),
-                        
                         onPressed: () {
-                          selected==-1?0:updateQuestion();
+                          selected == -1 ? 0 : updateQuestion();
                         },
-                        color: selected==-1?Colors.grey:Colors.lime,
+                        color: selected == -1 ? Colors.grey : Colors.lime,
+                      ),
+                      ArgonTimerButton(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        minWidth: MediaQuery.of(context).size.width * 0.30,
+                        highlightColor: Colors.transparent,
+                        highlightElevation: 0,
+                        roundLoadingShape: false,
+                        splashColor: Colors.transparent,
+                        onTap: (startTimer, btnState) {
+                          if (btnState == ButtonState.Idle) {
+                            startTimer(15);
+                          }
+                        },
+                        initialTimer: 10, 
+
+                        child: Text(
+                          "Resend OTP",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        loader: (timeLeft) {
+                          return actOnTap(timeLeft);
+                        },
+                        borderRadius: 5.0,
+                        color: Colors.transparent,
+                        elevation: 0,
                       ),
                     ])
               ],
@@ -197,17 +232,38 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     );
   }
 
+  Widget actOnTap(int timeLeft) {
+    Widget wdgt = Text('Done!');
+    if(timeLeft>0){
+      print('Time left: $timeLeft');
+    wdgt =  Text(
+      "Wait | $timeLeft",
+      style: TextStyle(
+          color: Colors.black,
+          fontSize: 18,
+          fontWeight: FontWeight.w700),
+    );}else{
+      print('Time left is 0, $timeLeft');
+      updateQuestion();
+    }
+    return wdgt;
+  }
+
   updateQuestion() {
+    print('In udpateQuestion, $selected');
     quiz.questions[questionNo].selected = selected;
     setState(() {
-      if(answer==selected){
+      if (answer == selected) {
         quiz.totalScore++;
       }
       if (questionNo == quiz.countOfQuestions - 1) {
-        Navigator.push(context, new MaterialPageRoute(builder: (context)=> Summary(finalScore:quiz.totalScore)));
+        Navigator.push(
+            context,
+            new MaterialPageRoute(
+                builder: (context) => Summary(finalScore: quiz.totalScore)));
       } else {
         questionNo++;
-        selected=-1;
+        selected = -1;
       }
     });
   }
@@ -218,12 +274,11 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
       selected = selection;
     });
   }
-
 }
 
-class Summary extends StatelessWidget{
+class Summary extends StatelessWidget {
   final int finalScore;
-  Summary({Key key, @required this.finalScore}):super(key:key);
+  Summary({Key key, @required this.finalScore}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -235,8 +290,8 @@ class Summary extends StatelessWidget{
             body: Text('Results : $finalScore'),
           ),
         ),
-      ) ,
-      onWillPop: ()async=>false,);
+      ),
+      onWillPop: () async => false,
+    );
   }
-
 }
