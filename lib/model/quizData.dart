@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:mult_tables/model/enumLevel.dart';
 
-//TODO:Save selections and results
 class Quiz {
   bool allow12and21;
   int countOfQuestions;
@@ -11,9 +10,6 @@ class Quiz {
   var _firstListOfNumbers, _secondListOfNumbers;
 
   List<Question> questions = [];
-
-  List<List<int>> arrayOfPossibleResults = [];
-
   int totalScore = 0;
 
   Quiz(this.countOfQuestions, this.levelOfQuiz, this.allow12and21) {
@@ -27,10 +23,6 @@ class Quiz {
           Question(_firstListOfNumbers[count], _secondListOfNumbers[count]));
     }
 
-    // for (int i = 0; i < countOfQuestions; i++) {
-    //   arrayOfPossibleResults.add(
-    //       _getPossibleResults(firstListOfNumbers[i], secondListOfNumbers[i]));
-    // }
   }
 
 // @param const countOfQuestions = 5; This is the length of the List returned
@@ -39,8 +31,8 @@ class Quiz {
 // const allow12and21 = true;
   List<List> _getQuestionsForQuiz(
       int countOfQuestions, Level levelOfQuiz, bool allow12and21) {
-    var l1 = <int>[];
-    var l2 = <int>[];
+    var firstListOfNums = <int>[];
+    var secondListOfNums = <int>[];
 
     var _resultList = <String>[];
 
@@ -56,7 +48,7 @@ class Quiz {
       generateNumsUpto = generateNumsUpto + 3;
     }
 
-    while (l1.length < countOfQuestions && _effort < 100) {
+    while (firstListOfNums.length < countOfQuestions && _effort < 100) {
       _effort++;
       _num1 = _getRandomNumberInRange(generateNumsFrom, generateNumsUpto);
 
@@ -71,16 +63,16 @@ class Quiz {
       }
       if (!_resultList.contains(_comb)) {
         _resultList.add(_comb);
-        l1.add(_num1);
-        l2.add(_num2);
+        firstListOfNums.add(_num1);
+        secondListOfNums.add(_num2);
       }
     }
 
     if (_effort > 98) {
-      print("Possible error , effor at $_effort, l1 = $l1 , l2 = $l2");
+      print("Possible error , effor at $_effort, l1 = $firstListOfNums , l2 = $secondListOfNums");
     }
 
-    return [l1, l2];
+    return [firstListOfNums, secondListOfNums];
   }
 
   int _getRandomNumberInRange(int generateNumsFrom, int generateNumsUpto) {
