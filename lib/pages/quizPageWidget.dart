@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -186,16 +188,52 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                 ),
                 new Padding(padding: EdgeInsets.all(20.0)),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // RaisedButton(
+                    //   child: const Text('Submit',
+                    //       style: TextStyle(fontSize: 20)),
+                    //   onPressed: () {
+                    //     selected == -1 ? 0 : updateQuestion();
+                    //   },
+                    //   color: selected == -1 ? Colors.grey : Colors.lime,
+                    // ),
+                    ArgonTimerButton(
+                      height: 50,
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      minWidth: MediaQuery.of(context).size.width * 0.30,
+                      highlightColor: Colors.transparent,
+                      highlightElevation: 0,
+                      roundLoadingShape: false,
+                      splashColor: Colors.transparent,
+                      onTap: (startTimer, btnState) {
+                        if (btnState == ButtonState.Idle) {
+                          startTimer(10);
+                          updateQuestion();
+                        }
+                      },
+                      initialTimer: 10,
+
+                      child: Text(
+                        'Submit',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      loader: ( timeLeft) {
+                        return countDownButton(timeLeft);
+                      },
+                      borderRadius: 5.0,
+                      //color: Colors.transparent,
+                      elevation: 0,
+                    ),
+                  ],
+                ),
+                new Padding(padding: EdgeInsets.all(2.0)),
+                Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      RaisedButton(
-                        child: const Text('Submit',
-                            style: TextStyle(fontSize: 20)),
-                        onPressed: () {
-                          selected == -1 ? 0 : updateQuestion();
-                        },
-                        color: selected == -1 ? Colors.grey : Colors.lime,
-                      ),
                       ArgonTimerButton(
                         height: 50,
                         width: MediaQuery.of(context).size.width * 0.45,
@@ -203,14 +241,12 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                         highlightColor: Colors.transparent,
                         highlightElevation: 0,
                         roundLoadingShape: false,
-                        splashColor: Colors.transparent,
                         onTap: (startTimer, btnState) {
                           if (btnState == ButtonState.Idle) {
-                            startTimer(15);
+                            startTimer(5);
                           }
                         },
-                        initialTimer: 10, 
-
+                        //initialTimer: 10,
                         child: Text(
                           "Resend OTP",
                           style: TextStyle(
@@ -219,11 +255,18 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                               fontWeight: FontWeight.w700),
                         ),
                         loader: (timeLeft) {
-                          return actOnTap(timeLeft);
+                          return Text(
+                            "Wait | $timeLeft",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700),
+                          );
                         },
                         borderRadius: 5.0,
                         color: Colors.transparent,
                         elevation: 0,
+                        borderSide: BorderSide(color: Colors.black, width: 1.5),
                       ),
                     ])
               ],
@@ -232,24 +275,30 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     );
   }
 
-  Widget actOnTap(int timeLeft) {
+  Widget countDownButton(int timeLeft) {
     Widget wdgt = Text('Done!');
-    if(timeLeft>0){
+    if (timeLeft > 0) {
       print('Time left: $timeLeft');
-    wdgt =  Text(
-      "Wait | $timeLeft",
-      style: TextStyle(
-          color: Colors.black,
-          fontSize: 18,
-          fontWeight: FontWeight.w700),
-    );}else{
+      wdgt = RaisedButton(
+        child: Text(
+          "Submit($timeLeft)",
+          style: TextStyle(
+              color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),
+        ),
+        onPressed: () {
+
+          selected == -1 ? 0 : updateQuestion();
+        },
+      );
+    } else {
       print('Time left is 0, $timeLeft');
-      updateQuestion();
+      //TODO: Disable selecting or changing answers
     }
     return wdgt;
   }
 
   updateQuestion() {
+    //TODO: Save time taken to answer
     print('In udpateQuestion, $selected');
     quiz.questions[questionNo].selected = selected;
     setState(() {
