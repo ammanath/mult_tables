@@ -10,7 +10,19 @@ class Quiz {
   var _firstListOfNumbers, _secondListOfNumbers;
 
   List<Question> questions = [];
-  int totalScore = 0;
+  //int totalScore = 0;
+
+  int get totalTime{
+    int sum=0;
+    questions.forEach((e) => sum += e?.time);
+    return sum;
+  }
+
+  int get totalScore{
+    int sum=0;
+    questions.forEach((e) => sum += e.num1*e.num2 == e.selected?1:0);
+    return sum;
+  }
 
   Quiz(this.countOfQuestions, this.levelOfQuiz, this.allow12and21) {
     _result = _getQuestionsForQuiz(countOfQuestions, levelOfQuiz, allow12and21);

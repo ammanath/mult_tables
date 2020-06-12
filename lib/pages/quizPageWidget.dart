@@ -251,15 +251,12 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     quiz.questions[questionNo].selected = selected;
     quiz.questions[questionNo].time = _countDownTime- timeInSeconds;
     setState(() {
-      if (answer == selected) {
-        quiz.totalScore++;
-      }
-      //TODO: Update the results to show details for all questions.
+
       if (questionNo == quiz.countOfQuestions - 1) {
         Navigator.push(
             context,
             new MaterialPageRoute(
-                builder: (context) => Summary(finalScore: quiz.totalScore)));
+                builder: (context) => Summary(quiz: quiz)));
       } else {
         questionNo++;
         selected = -1;
@@ -276,8 +273,8 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
 }
 
 class Summary extends StatelessWidget {
-  final int finalScore;
-  Summary({Key key, @required this.finalScore}) : super(key: key);
+  final Quiz quiz;
+  Summary({Key key, @required this.quiz}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -286,7 +283,7 @@ class Summary extends StatelessWidget {
         padding: EdgeInsets.all(40),
         child: Center(
           child: Scaffold(
-            body: Text('Results : $finalScore'),
+            body: Text('Results : ${quiz.totalScore}, completed in ${quiz.totalTime} seconds'),
           ),
         ),
       ),
