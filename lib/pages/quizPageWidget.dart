@@ -76,6 +76,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   int answer = 0;
   int selected = -1;
   double _progressValue = 0;
+  static const int _countDownTime = 10;
 
   @override
   void initState() {
@@ -103,137 +104,99 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     _progressValue = (questionNo) / countOfQuestions;
     answer = quiz.questions[questionNo].rightAns;
 
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        body: Container(
-            margin: const EdgeInsets.all(40.0),
-            alignment: Alignment.topCenter,
-            child: Column(
-              children: <Widget>[
-                new Padding(padding: EdgeInsets.all(20.0)),
-                new Text('Level : $levelDesc'),
-                new Padding(padding: EdgeInsets.all(6.0)),
-                new Text('Score : ${quiz.totalScore ?? 0}'),
-                new Padding(padding: EdgeInsets.all(6.0)),
-                new Text(
-                  '$question',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.blue,
-                  ),
-                ),
-                new Padding(padding: EdgeInsets.all(6.0)),
-                new Text(
-                  '$q1',
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.deepOrange,
-                  ),
-                ),
-                new Padding(padding: EdgeInsets.all(8.0)),
-                LinearProgressIndicator(
-                  value: _progressValue,
-                ),
-                new Padding(padding: EdgeInsets.all(20.0)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    MaterialButton(
-                      child: new Text('${results[0]}'),
-                      onPressed: () {
-                        choiceSelected(results[0]);
-                      },
-                      color: selected == results[0]
-                          ? Colors.teal
-                          : Colors.blueGrey,
-                      minWidth: 120.0,
-                    ),
-                    MaterialButton(
-                      child: new Text('${results[1]}'),
-                      onPressed: () {
-                        choiceSelected(results[1]);
-                      },
-                      color: selected == results[1]
-                          ? Colors.teal
-                          : Colors.blueGrey,
-                      minWidth: 120.0,
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    MaterialButton(
-                      child: new Text('${results[2]}'),
-                      onPressed: () {
-                        choiceSelected(results[2]);
-                      },
-                      color: selected == results[2]
-                          ? Colors.teal
-                          : Colors.blueGrey,
-                      minWidth: 120.0,
-                    ),
-                    MaterialButton(
-                      child: new Text('${results[3]}'),
-                      onPressed: () {
-                        choiceSelected(results[3]);
-                      },
-                      color: selected == results[3]
-                          ? Colors.teal
-                          : Colors.blueGrey,
-                      minWidth: 120.0,
-                    )
-                  ],
-                ),
-                new Padding(padding: EdgeInsets.all(20.0)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    // RaisedButton(
-                    //   child: const Text('Submit',
-                    //       style: TextStyle(fontSize: 20)),
-                    //   onPressed: () {
-                    //     selected == -1 ? 0 : updateQuestion();
-                    //   },
-                    //   color: selected == -1 ? Colors.grey : Colors.lime,
-                    // ),
-                    ArgonTimerButton(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width * 0.45,
-                      minWidth: MediaQuery.of(context).size.width * 0.30,
-                      highlightColor: Colors.transparent,
-                      highlightElevation: 0,
-                      roundLoadingShape: false,
-                      splashColor: Colors.transparent,
-                      onTap: (startTimer, btnState) {
-                        if (btnState == ButtonState.Idle) {
-                          startTimer(10);
-                          updateQuestion();
-                        }
-                      },
-                      initialTimer: 10,
+    int timeL = 0;
 
-                      child: Text(
-                        'Submit',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      loader: ( timeLeft) {
-                        return countDownButton(timeLeft);
-                      },
-                      borderRadius: 5.0,
-                      //color: Colors.transparent,
-                      elevation: 0,
+    
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: Scaffold(
+            body: Container(
+                margin: const EdgeInsets.all(40.0),
+                alignment: Alignment.topCenter,
+                child: Column(children: <Widget>[
+                  new Padding(padding: EdgeInsets.all(20.0)),
+                  new Text('Level : $levelDesc'),
+                  new Padding(padding: EdgeInsets.all(6.0)),
+                  new Text('Score : ${quiz.totalScore ?? 0}'),
+                  new Padding(padding: EdgeInsets.all(6.0)),
+                  new Text(
+                    '$question',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.blue,
                     ),
-                  ],
-                ),
-                new Padding(padding: EdgeInsets.all(2.0)),
-                Row(
+                  ),
+                  new Padding(padding: EdgeInsets.all(6.0)),
+                  new Text(
+                    '$q1',
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.deepOrange,
+                    ),
+                  ),
+                  new Padding(padding: EdgeInsets.all(8.0)),
+                  LinearProgressIndicator(
+                    value: _progressValue,
+                  ),
+                  new Padding(padding: EdgeInsets.all(20.0)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      MaterialButton(
+                        child: new Text('${results[0]}'),
+                        onPressed: () {
+                          choiceSelected(results[0]);
+                        },
+                        color:
+                            selected == results[0] ? Colors.teal : Colors.blueGrey,
+                        minWidth: 120.0,
+                      ),
+                      MaterialButton(
+                        child: new Text('${results[1]}'),
+                        onPressed: () {
+                          choiceSelected(results[1]);
+                        },
+                        color:
+                            selected == results[1] ? Colors.teal : Colors.blueGrey,
+                        minWidth: 120.0,
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      MaterialButton(
+                        child: new Text('${results[2]}'),
+                        onPressed: () {
+                          choiceSelected(results[2]);
+                        },
+                        color:
+                            selected == results[2] ? Colors.teal : Colors.blueGrey,
+                        minWidth: 120.0,
+                      ),
+                      MaterialButton(
+                        child: new Text('${results[3]}'),
+                        onPressed: () {
+                          choiceSelected(results[3]);
+                        },
+                        color:
+                            selected == results[3] ? Colors.teal : Colors.blueGrey,
+                        minWidth: 120.0,
+                      )
+                    ],
+                  ),
+                  new Padding(padding: EdgeInsets.all(20.0)),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      // RaisedButton(
+                      //   child: const Text('Submit',
+                      //       style: TextStyle(fontSize: 20)),
+                      //   onPressed: () {
+                      //     selected == -1 ? 0 : updateQuestion();
+                      //   },
+                      //   color: selected == -1 ? Colors.grey : Colors.lime,
+                      // ),
                       ArgonTimerButton(
                         height: 50,
                         width: MediaQuery.of(context).size.width * 0.45,
@@ -241,70 +204,57 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                         highlightColor: Colors.transparent,
                         highlightElevation: 0,
                         roundLoadingShape: false,
+                        splashColor: Colors.transparent,
                         onTap: (startTimer, btnState) {
-                          if (btnState == ButtonState.Idle) {
-                            startTimer(5);
+                          
+    
+                          if (questionNo != quiz.countOfQuestions - 1) {
+                            startTimer(10);
                           }
+                          updateQuestion(timeL);
+                          print('In onTap for 1 , time left is $timeL');
                         },
-                        //initialTimer: 10,
-                        child: Text(
-                          "Resend OTP",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        loader: (timeLeft) {
-                          return Text(
-                            "Wait | $timeLeft",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700),
-                          );
-                        },
-                        borderRadius: 5.0,
-                        color: Colors.transparent,
-                        elevation: 0,
-                        borderSide: BorderSide(color: Colors.black, width: 1.5),
-                      ),
-                    ])
-              ],
-            )),
+                        initialTimer: _countDownTime,
+
+                    child: Text(
+                      selected == -1 ? 'Next' : 'Submit',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    loader: (timeLeft) {
+                      timeL = timeLeft;
+                      return Text(
+                        "Wait | $timeLeft",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700),
+                      );
+                    },
+                    borderRadius: 5.0,
+                    //color: Colors.transparent,
+                    elevation: 0,
+                  ),
+                ],
+              )
+            ])),
       ),
     );
   }
 
-  Widget countDownButton(int timeLeft) {
-    Widget wdgt = Text('Done!');
-    if (timeLeft > 0) {
-      print('Time left: $timeLeft');
-      wdgt = RaisedButton(
-        child: Text(
-          "Submit($timeLeft)",
-          style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),
-        ),
-        onPressed: () {
 
-          selected == -1 ? 0 : updateQuestion();
-        },
-      );
-    } else {
-      print('Time left is 0, $timeLeft');
-      //TODO: Disable selecting or changing answers
-    }
-    return wdgt;
-  }
 
-  updateQuestion() {
-    //TODO: Save time taken to answer
+  updateQuestion(int timeInSeconds) {
     print('In udpateQuestion, $selected');
     quiz.questions[questionNo].selected = selected;
+    quiz.questions[questionNo].time = _countDownTime- timeInSeconds;
     setState(() {
       if (answer == selected) {
         quiz.totalScore++;
       }
+      //TODO: Update the results to show details for all questions.
       if (questionNo == quiz.countOfQuestions - 1) {
         Navigator.push(
             context,

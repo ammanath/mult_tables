@@ -87,7 +87,7 @@ class Question {
   int num1, num2;
   String operation;
   int selected = -1;
-  DateTime time;
+  int time;
   List<int> answers;
 
   Question(this.num1, this.num2, {this.operation = '*'});
