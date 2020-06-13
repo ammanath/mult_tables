@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lime,
       ),
       debugShowCheckedModeBanner: false,
-      home: SafeArea(child: QuizPageWidget()),
+      home: SafeArea(child: HomePageWidget()),
     );
   }
 }
