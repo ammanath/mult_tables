@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mult_tables/pages/cellWidget.dart';
+import 'package:mult_tables/pages/quizPageWidget.dart';
 import 'package:mult_tables/pages/tablePageWidget.dart';
 
 class HomePageWidget extends StatelessWidget {
@@ -10,9 +11,18 @@ class HomePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
-        title: Text('Multi Tables'),
-      ),
+          title: Text('Multi Tables'),
+          actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.question_answer),
+            color: Colors.lime[700],
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => QuizPageWidget()),);
+            },
+          ),]),
+
       body: Center(
         child: MainBodyWidget(),
       ),
