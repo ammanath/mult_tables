@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/pages/cellWidget.dart';
 import 'package:mult_tables/pages/quizPageWidget.dart';
 
@@ -13,25 +14,13 @@ class TablePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-          child: Scaffold(
-        appBar: AppBar(
-          title: Text('Multi Tables for $multBy'),
-          actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.question_answer),
-            color: Colors.lime[700],
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => QuizPageWidget()),);
-            },
-          ),
-          
-        ]),
+      child: Scaffold(
+        appBar:
+            buildAppBar(context, 'Multi Tables for $multBy', QuizPageWidget()),
         body: Center(
           child: TableBodyWidget(multBy),
         ),
-        ),
-        
-        
+      ),
     );
   }
 }
