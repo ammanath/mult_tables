@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/model/quizData.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QuizPageWidget extends StatelessWidget {
   const QuizPageWidget({
@@ -277,6 +278,7 @@ class ResultsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _saveSettings(quiz);
     return new WillPopScope(
       child: Container(
         padding: EdgeInsets.all(40),
@@ -304,4 +306,24 @@ class ResultsPage extends StatelessWidget {
       onWillPop: () async => false,
     );
   }
+
+//TODO: Save last played, last score and last level, all time best score in time at what level, all time worst score at each level, total times played
+_saveSettings(Quiz quiz) async {
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  
+  int totalTimesPlayed = (prefs.getInt('totalTimesPlayed') ?? 0) + 1;
+  String lastPlayed = (prefs.getString('lastPlayed') ?? DateTime.now().toString());
+  int lastScore = (prefs.getInt('lastScore') ?? quiz.totalScore) ;
+  String lastLevel = (prefs.getString('lastLevel') ?? quiz.levelOfQuiz.toString()) ;
+  
+  print('Quiz attempted $totalTimesPlayed times.');
+  
+  await prefs.setInt('totalTimesPlayed', totalTimesPlayed);
+  await prefs.setString('lastPlayed', lastPlayed);
+  await prefs.setInt('lastScore', lastScore);
+  await prefs.setString('lastLevel', lastLevel);
+  
+  }
+
 }
