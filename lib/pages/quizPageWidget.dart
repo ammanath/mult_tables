@@ -279,7 +279,9 @@ class ResultsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _retrieveSettings();
     _saveSettings(quiz);
+    _retrieveSettings();
     return new WillPopScope(
       child: Container(
         padding: EdgeInsets.all(40),
@@ -308,54 +310,103 @@ class ResultsPage extends StatelessWidget {
     );
   }
 
-//TODO: fix initiation issues
+
+  Future<QuizSettings> _retrieveSettings() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    QuizSettings settings = QuizSettings.from(prefs);
+
+
+    print(
+        'Settings, Total time Quiz attempted: ${settings.totalTimesPlayed} times. Quiz was last played on ${settings.lastPlayed} at ${settings.lastLevel} and the score was ${settings.lastScore}. \n The Top score at Level Easy was ${settings.allTimeBestScoreAtEasy}, \n The Top score at Level Medium was ${settings.allTimeBestScoreAtMed}, \n The Top score at Level Difficult was ${settings.allTimeBestScoreAtDiff}.');
+
+    return settings;
+
+  }
+
+
+
   _saveSettings(Quiz quiz) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    QuizSettings settings = QuizSettings.from(prefs);
 
-    int totalTimesPlayed = (prefs.getInt('totalTimesPlayed') ?? 0) + 1;
-    String lastPlayed =
-        (prefs.getString('lastPlayed') ?? DateTime.now().toString());
-    int lastScore = (prefs.getInt('lastScore') ?? quiz.totalScore);
-    String lastLevel =
-        (prefs.getString('lastLevel') ?? quiz.levelOfQuiz.toString());
-
-    int allTimeBestScoreAtEasy, allTimeBestScoreAtMed, allTimeBestScoreAtDiff;
-    int totalScore = quiz.totalScore;
     bool newAllTimeScoreSet = false;
 
-    if (quiz.levelOfQuiz == Level.Easy) {
-      allTimeBestScoreAtEasy = (prefs.getInt('allTimeBestScoreAtEasy') ?? 0);
-      if (allTimeBestScoreAtEasy < totalScore) {
-        allTimeBestScoreAtEasy = totalScore;
-        newAllTimeScoreSet= true;
-        await prefs.setInt('allTimeBestScoreAtEasy', allTimeBestScoreAtEasy);
-        await prefs.setString('newAllTimeScoreSetAtEasy', DateTime.now().toString());
-      }
-    } else if (quiz.levelOfQuiz == Level.Medium) {
-      allTimeBestScoreAtMed = (prefs.getInt('allTimeBestScoreAtMed') ?? 0);
-      if (allTimeBestScoreAtMed < totalScore) {
-        allTimeBestScoreAtMed = totalScore;
-        newAllTimeScoreSet= true;
-        await prefs.setInt('allTimeBestScoreAtMed', allTimeBestScoreAtMed);
-        await prefs.setString('newAllTimeScoreSetAtMed', DateTime.now().toString());
-      }
-    } else if (quiz.levelOfQuiz == Level.Difficult) {
-      allTimeBestScoreAtDiff = (prefs.getInt('allTimeBestScoreAtDiff') ?? 0);
-      if (allTimeBestScoreAtDiff < totalScore) {
-        allTimeBestScoreAtDiff = totalScore;
-        newAllTimeScoreSet= true;
-        await prefs.setInt('allTimeBestScoreAtDiff', allTimeBestScoreAtDiff);
-        await prefs.setString('newAllTimeScoreSetAtDiff', DateTime.now().toString());
+    print(
+        'Before Quiz attempted ${settings.totalTimesPlayed} times. Quiz was last played on ${settings.lastPlayed} at ${settings.lastLevel} and the score was ${settings.lastScore}. \n The Top score at Level Easy was ${settings.allTimeBestScoreAtEasy}, \n The Top score at Level Medium was ${settings.allTimeBestScoreAtMed}, \n The Top score at Level Difficult was ${settings.allTimeBestScoreAtDiff}. \n This attempt set a new Top score = $newAllTimeScoreSet');
+
+    await prefs.setInt('totalTimesPlayed', settings.totalTimesPlayed + 1);
+    await prefs.setString('lastPlayed', DateTime.now().toString());
+    await prefs.setInt('lastScore', quiz.totalScore);
+    await prefs.setString('lastLevel', quiz.levelOfQuiz.toString());
+    if (hasNewAllTimeTopScoreBeenSet(quiz,settings)) {
+      if (quiz.levelOfQuiz == Level.Easy) {
+        await prefs.setInt('allTimeBestScoreAtEasy', quiz.totalScore);
+        await prefs.setString(
+            'newAllTimeScoreSetAtEasy', DateTime.now().toString());
+      } else if (quiz.levelOfQuiz == Level.Medium) {
+        await prefs.setInt('allTimeBestScoreAtMed', quiz.totalScore);
+        await prefs.setString(
+            'newAllTimeScoreSetAtMed', DateTime.now().toString());
+      } else if (quiz.levelOfQuiz == Level.Difficult) {
+        await prefs.setInt('allTimeBestScoreAtDiff', quiz.totalScore);
+        await prefs.setString(
+            'newAllTimeScoreSetAtDiff', DateTime.now().toString());
       }
     }
+  }
 
+  bool hasNewAllTimeTopScoreBeenSet(Quiz quiz, QuizSettings settings) {
+    if (quiz.levelOfQuiz == Level.Easy) {
+      if (settings.allTimeBestScoreAtEasy < quiz.totalScore) {
+        return true;
+      }
+    } else if (quiz.levelOfQuiz == Level.Medium) {
+      if (settings.allTimeBestScoreAtMed < quiz.totalScore) {
+        return true;
+      }
+    } else if (quiz.levelOfQuiz == Level.Difficult) {
+      if (settings.allTimeBestScoreAtDiff < quiz.totalScore) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
 
-    print('Quiz attempted $totalTimesPlayed times. Quiz was last played on $lastPlayed at $lastLevel and the score was $lastScore. \n The Top score at Level Easy was $allTimeBestScoreAtEasy, \n The Top score at Level Medium was $allTimeBestScoreAtMed, \n The Top score at Level Difficult was $allTimeBestScoreAtDiff. \n This attempt set a new Top score = $newAllTimeScoreSet');
+/*DOC: 
+totalTimesPlayed - Number of times the quiz has been attempted
+lastPlayed - 
+lastScore
+lastLevel
+allTimeBestScoreAtEasy - All time best score at Level Easy
+newAllTimeScoreSetAtEasy - Date and Time on when the all time best score was set at level easy.
+allTimeBestScoreAtMed
+newAllTimeScoreSetAtMed
+allTimeBestScoreAtDiff
+newAllTimeScoreSetAtDiff
+*/
+class QuizSettings {
+  int totalTimesPlayed;
+  String lastPlayed;
+  int lastScore;
+  String lastLevel;
+  int allTimeBestScoreAtEasy;
+  int allTimeBestScoreAtMed;
+  int allTimeBestScoreAtDiff;
+  String newAllTimeScoreSetAtEasy;
+  String newAllTimeScoreSetAtMed;
+  String newAllTimeScoreSetAtDiff;
 
-    await prefs.setInt('totalTimesPlayed', totalTimesPlayed);
-    await prefs.setString('lastPlayed', lastPlayed);
-    await prefs.setInt('lastScore', lastScore);
-    await prefs.setString('lastLevel', lastLevel);
-    
+  QuizSettings.from(SharedPreferences prefs) {
+    totalTimesPlayed = prefs.getInt('totalTimesPlayed') ?? 0;
+    lastPlayed = prefs.getString('lastPlayed');
+    lastScore = prefs.getInt('lastScore') ?? 0;
+    lastLevel = prefs.getString('lastLevel');
+    allTimeBestScoreAtEasy = prefs.getInt('allTimeBestScoreAtEasy') ?? 0;
+    allTimeBestScoreAtMed = prefs.getInt('allTimeBestScoreAtMed')??0;
+    allTimeBestScoreAtDiff = prefs.getInt('allTimeBestScoreAtDiff')??0;
+    newAllTimeScoreSetAtEasy = prefs.getString('newAllTimeScoreSetAtEasy');
+    newAllTimeScoreSetAtMed = prefs.getString('newAllTimeScoreSetAtMed');
+    newAllTimeScoreSetAtDiff = prefs.getString('newAllTimeScoreSetAtDiff');
   }
 }
