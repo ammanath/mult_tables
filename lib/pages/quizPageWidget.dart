@@ -317,7 +317,7 @@ class ResultsPage extends StatelessWidget {
 
 
     print(
-        'Settings, Total time Quiz attempted: ${settings.totalTimesPlayed} times. Quiz was last played on ${settings.lastPlayed} at ${settings.lastLevel} and the score was ${settings.lastScore}. \n The Top score at Level Easy was ${settings.allTimeBestScoreAtEasy}, \n The Top score at Level Medium was ${settings.allTimeBestScoreAtMed}, \n The Top score at Level Difficult was ${settings.allTimeBestScoreAtDiff}.');
+        'Settings, Total time Quiz attempted: ${settings.totalTimesPlayed} times. Quiz was last played on ${settings.lastPlayed} at ${settings.lastLevel} and the score was ${settings.lastScore}. The count of questions was ${settings.countOfQuestions} \n The Top score at Level Easy was ${settings.allTimeBestScoreAtEasy}, \n The Top score at Level Medium was ${settings.allTimeBestScoreAtMed}, \n The Top score at Level Difficult was ${settings.allTimeBestScoreAtDiff}.');
 
     return settings;
 
@@ -332,12 +332,14 @@ class ResultsPage extends StatelessWidget {
     bool newAllTimeScoreSet = false;
 
     print(
-        'Before Quiz attempted ${settings.totalTimesPlayed} times. Quiz was last played on ${settings.lastPlayed} at ${settings.lastLevel} and the score was ${settings.lastScore}. \n The Top score at Level Easy was ${settings.allTimeBestScoreAtEasy}, \n The Top score at Level Medium was ${settings.allTimeBestScoreAtMed}, \n The Top score at Level Difficult was ${settings.allTimeBestScoreAtDiff}. \n This attempt set a new Top score = $newAllTimeScoreSet');
+        'Before Quiz attempted ${settings.totalTimesPlayed} times. Quiz was last played on ${settings.lastPlayed} at ${settings.lastLevel} and the score was ${settings.lastScore}. The count of questions was ${settings.countOfQuestions} \n The Top score at Level Easy was ${settings.allTimeBestScoreAtEasy}, \n The Top score at Level Medium was ${settings.allTimeBestScoreAtMed}, \n The Top score at Level Difficult was ${settings.allTimeBestScoreAtDiff}. \n This attempt set a new Top score = $newAllTimeScoreSet');
 
     await prefs.setInt('totalTimesPlayed', settings.totalTimesPlayed + 1);
     await prefs.setString('lastPlayed', DateTime.now().toString());
     await prefs.setInt('lastScore', quiz.totalScore);
     await prefs.setString('lastLevel', quiz.levelOfQuiz.toString());
+    await prefs.setInt('countOfQuestions', quiz.countOfQuestions);
+
     if (hasNewAllTimeTopScoreBeenSet(quiz,settings)) {
       if (quiz.levelOfQuiz == Level.Easy) {
         await prefs.setInt('allTimeBestScoreAtEasy', quiz.totalScore);
@@ -384,6 +386,7 @@ allTimeBestScoreAtMed
 newAllTimeScoreSetAtMed
 allTimeBestScoreAtDiff
 newAllTimeScoreSetAtDiff
+countOfQuestions
 */
 class QuizSettings {
   int totalTimesPlayed;
@@ -396,6 +399,7 @@ class QuizSettings {
   String newAllTimeScoreSetAtEasy;
   String newAllTimeScoreSetAtMed;
   String newAllTimeScoreSetAtDiff;
+  int countOfQuestions;
 
   QuizSettings.from(SharedPreferences prefs) {
     totalTimesPlayed = prefs.getInt('totalTimesPlayed') ?? 0;
@@ -408,5 +412,6 @@ class QuizSettings {
     newAllTimeScoreSetAtEasy = prefs.getString('newAllTimeScoreSetAtEasy');
     newAllTimeScoreSetAtMed = prefs.getString('newAllTimeScoreSetAtMed');
     newAllTimeScoreSetAtDiff = prefs.getString('newAllTimeScoreSetAtDiff');
+    countOfQuestions = prefs.getInt('countOfQuestions')??0;
   }
 }
