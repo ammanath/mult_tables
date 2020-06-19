@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/model/quizData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 
 class QuizPageWidget extends StatelessWidget {
   const QuizPageWidget({
@@ -53,6 +55,7 @@ class QuizPageWidget extends StatelessWidget {
   }
 
   void navigateToQuiz(BuildContext context, Level level) {
+
     AwesomeDialog(
       context: context,
       headerAnimationLoop: false,
@@ -69,7 +72,11 @@ class QuizPageWidget extends StatelessWidget {
           MaterialPageRoute(builder: (context) => QuizQuestionsWidget(level)),
         );
       },
+
     )..show();
+
+    
+
   }
 }
 
@@ -279,9 +286,7 @@ class ResultsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _retrieveSettings();
-    _saveSettings(quiz);
-    _retrieveSettings();
+    getSettingsAndAct();
     return new WillPopScope(
       child: Container(
         padding: EdgeInsets.all(40),
@@ -308,6 +313,17 @@ class ResultsPage extends StatelessWidget {
       ),
       onWillPop: () async => false,
     );
+  }
+
+  Future<QuizSettings> getSettingsAndAct() async {
+    _retrieveSettings();
+    _saveSettings(quiz);
+    QuizSettings settings  = await _retrieveSettings();
+    if(QuizSettings.hasNewAllTimeTopScoreBeenSet(quiz, settings)){
+      
+      Vibrate.vibrate();
+    }
+    return settings;
   }
 
 
@@ -340,7 +356,7 @@ class ResultsPage extends StatelessWidget {
     await prefs.setString('lastLevel', quiz.levelOfQuiz.toString());
     await prefs.setInt('countOfQuestions', quiz.countOfQuestions);
 
-    if (hasNewAllTimeTopScoreBeenSet(quiz,settings)) {
+    if (QuizSettings.hasNewAllTimeTopScoreBeenSet(quiz, settings) ) {
       if (quiz.levelOfQuiz == Level.Easy) {
         await prefs.setInt('allTimeBestScoreAtEasy', quiz.totalScore);
         await prefs.setString(
@@ -357,22 +373,7 @@ class ResultsPage extends StatelessWidget {
     }
   }
 
-  bool hasNewAllTimeTopScoreBeenSet(Quiz quiz, QuizSettings settings) {
-    if (quiz.levelOfQuiz == Level.Easy) {
-      if (settings.allTimeBestScoreAtEasy < quiz.totalScore) {
-        return true;
-      }
-    } else if (quiz.levelOfQuiz == Level.Medium) {
-      if (settings.allTimeBestScoreAtMed < quiz.totalScore) {
-        return true;
-      }
-    } else if (quiz.levelOfQuiz == Level.Difficult) {
-      if (settings.allTimeBestScoreAtDiff < quiz.totalScore) {
-        return true;
-      }
-    }
-    return false;
-  }
+
 }
 
 /*DOC: 
@@ -385,7 +386,7 @@ newAllTimeScoreSetAtEasy - Date and Time on when the all time best score was set
 allTimeBestScoreAtMed
 newAllTimeScoreSetAtMed
 allTimeBestScoreAtDiff
-newAllTimeScoreSetAtDiff
+newAllTimeScoreSetAtDiff    
 countOfQuestions
 */
 class QuizSettings {
@@ -413,5 +414,22 @@ class QuizSettings {
     newAllTimeScoreSetAtMed = prefs.getString('newAllTimeScoreSetAtMed');
     newAllTimeScoreSetAtDiff = prefs.getString('newAllTimeScoreSetAtDiff');
     countOfQuestions = prefs.getInt('countOfQuestions')??0;
+  }
+
+    static bool hasNewAllTimeTopScoreBeenSet(Quiz quiz, QuizSettings settings) {
+    if (quiz.levelOfQuiz == Level.Easy) {
+      if (settings.allTimeBestScoreAtEasy < quiz.totalScore) {
+        return true;
+      }
+    } else if (quiz.levelOfQuiz == Level.Medium) {
+      if (settings.allTimeBestScoreAtMed < quiz.totalScore) {
+        return true;
+      }
+    } else if (quiz.levelOfQuiz == Level.Difficult) {
+      if (settings.allTimeBestScoreAtDiff < quiz.totalScore) {
+        return true;
+      }
+    }
+    return false;
   }
 }
