@@ -1,16 +1,14 @@
-# mult_tables
+# mult_tables  
 
-A new Flutter project.
+An application to learn multiplication and to test your knowledge with a quiz
 
-## Getting Started
+## To replace the default icon  
+    PS C:\working\FlutterProjs\mult_tables> flutter pub get
+    Running "flutter pub get" in mult_tables...                         0.5s
+    PS C:\working\FlutterProjs\mult_tables> flutter pub pub run flutter_launcher_icons:main
+    Android minSdkVersion = 16
+    Creating default icons Android
+    Overwriting the default Android launcher icon with a new icon
+    PS C:\working\FlutterProjs\mult_tables>
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

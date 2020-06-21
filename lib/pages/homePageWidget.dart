@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/pages/cellWidget.dart';
+import 'package:mult_tables/pages/helper.dart';
 import 'package:mult_tables/pages/quizPageWidget.dart';
 import 'package:mult_tables/pages/tablePageWidget.dart';
 
-class HomePageWidget extends StatelessWidget {
-  const HomePageWidget({
+class MultTablesHomePageWidget extends StatelessWidget {
+  const MultTablesHomePageWidget({
     Key key,
   }) : super(key: key);
 
@@ -20,8 +20,6 @@ class HomePageWidget extends StatelessWidget {
       ),
     );
   }
-
-  
 }
 
 //TODO:Add top menu  for feedback ratings, settings 
@@ -33,7 +31,7 @@ class MainBodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.lime,
+      color: Theme.of(context).primaryColor,
       child: GridWidget(),
     );
   }

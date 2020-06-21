@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/pages/cellWidget.dart';
+import 'package:mult_tables/pages/helper.dart';
 import 'package:mult_tables/pages/quizPageWidget.dart';
 
 class TablePageWidget extends StatelessWidget {
@@ -36,7 +36,7 @@ class TableBodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.green,
+      color: Theme.of(context).primaryColor,
       child: GridWidget(multBy),
     );
   }

@@ -12,7 +12,7 @@ class CellWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-            color: Colors.lime[200], 
+            color: Theme.of(context).backgroundColor, 
             child: Center(child: Text(cellText)));
   }
 }
