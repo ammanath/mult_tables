@@ -7,7 +7,7 @@ AppBar buildAppBar(BuildContext context, String titleStr, Widget pageWidget) {
         actions: <Widget>[
         IconButton(
           icon: Icon(Icons.question_answer),
-          color: Colors.lime[700],
+          color: Theme.of(context).backgroundColor,
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) => pageWidget),);
           },
