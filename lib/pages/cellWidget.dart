@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CellWidget extends StatelessWidget {
   const CellWidget({
@@ -12,7 +12,10 @@ class CellWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-            color: Theme.of(context).backgroundColor, 
-            child: Center(child: Text(cellText)));
+        color: Theme.of(context).backgroundColor,
+        child: Center(
+          child: Text(cellText,
+          style: GoogleFonts.kalam(fontSize: 26, color: Colors.black),),
+        ));
   }
 }
