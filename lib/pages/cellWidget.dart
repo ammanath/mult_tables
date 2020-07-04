@@ -14,8 +14,11 @@ class CellWidget extends StatelessWidget {
     return Container(
         color: Theme.of(context).backgroundColor,
         child: Center(
-          child: Text(cellText,
-          style: GoogleFonts.kalam(fontSize: 26, color: Colors.black),),
+          child: Text(
+            cellText,
+            style: GoogleFonts.kalam(fontSize: 26, color: Colors.black),
+          ),
         ));
   }
 }
+

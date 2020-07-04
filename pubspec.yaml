@@ -21,6 +21,9 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  url_launcher: ^5.4.11
+  rating_dialog: ^1.0.0
+  launch_review: ^2.0.0
   google_fonts: ^1.1.0
   flutter_vibrate: ^1.0.0
   shared_preferences: ^0.5.7+3

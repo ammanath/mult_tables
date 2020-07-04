@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mult_tables/pages/cellWidget.dart';
 import 'package:mult_tables/pages/helper.dart';
 import 'package:mult_tables/pages/quizPageWidget.dart';
+import 'package:mult_tables/pages/resultsCellWidget.dart';
 
 class TablePageWidget extends StatelessWidget {
   final int multBy;
@@ -68,19 +69,20 @@ class GridWidget extends StatelessWidget {
 
   InkWell generateCell(int i, int multBy, BuildContext context) {
     var cellText = getCellText(i, multBy);
-    var container = CellWidget(cellText: cellText);
+    var container = ResultsCellWidget(
+        multiplyFor: multBy, multiplier:i + 2 , result: (i + 2) * multBy);
     return InkWell(
       child: container,
-      onTap: () => tapAction(i, multBy, cellText, context),
+      // onTap: () => tapAction(i, multBy, cellText, context),
     );
   }
 
-  String getCellText(int i, int multBy) =>
-      ' * ${i + 2} = ${((i + 2) * multBy).toString()}';
+  String getCellText(int i, int multBy) {
+    int num = i + 2;
+    var result = num * multBy;
 
-  void tapAction(int count, int multBy, String cellText, BuildContext context) {
-    print(
-        "Container pressed count: $count , multBy: $multBy, cellText: $cellText");
-    print(context.widget);
+    return ' * $num = ${(result).toString()}';
   }
+
+  
 }
