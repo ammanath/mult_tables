@@ -310,27 +310,37 @@ class ResultsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     getSettingsAndAct();
     return new WillPopScope(
-      child: Container(
-        padding: EdgeInsets.all(40),
-        child: Center(
-          child: Scaffold(
-            body: Column(
-              children: [
-                Text(
-                    'Results : ${quiz?.totalScore} right from ${quiz?.countOfQuestions} questions, completed in ${quiz?.totalTime} seconds'),
-                //Navigate to QuizPageWidget
-                RaisedButton(
-                    child: Text('New Quiz'),
-                    onPressed: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => QuizPageWidget()),
-                          )
-                        }),
-              ],
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text('Quiz Results'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.home),
+              color: Theme.of(context).backgroundColor,
+              onPressed: () {
+                Route route = MaterialPageRoute(
+                    builder: (context) => MultTablesHomePageWidget());
+                Navigator.pushAndRemoveUntil(context, route,(_) => false);
+              },
             ),
-          ),
+          ],
+        ),
+        body: Column(
+          children: [
+            Text(
+                'Results : ${quiz?.totalScore} right from ${quiz?.countOfQuestions} questions, completed in ${quiz?.totalTime} seconds'),
+            //Navigate to QuizPageWidget
+            RaisedButton(
+                child: Text('New Quiz'),
+                onPressed: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => QuizPageWidget()),
+                      )
+                    }),
+          ],
         ),
       ),
       onWillPop: () async => false,
