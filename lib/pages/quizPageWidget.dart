@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/model/quizData.dart';
+import 'package:mult_tables/pages/homePageWidget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class QuizPageWidget extends StatelessWidget {
@@ -30,12 +31,13 @@ class QuizPageWidget extends StatelessWidget {
               icon: Icon(Icons.home),
               color: Theme.of(context).backgroundColor,
               onPressed: () {
-                //_scrollToTop();
+                Route route = MaterialPageRoute(
+                    builder: (context) => MultTablesHomePageWidget());
+                Navigator.pushAndRemoveUntil(context, route,(_) => false);
               },
             ),
           ],
         ),
-        
         body: Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -65,7 +67,6 @@ class QuizPageWidget extends StatelessWidget {
   }
 
   void navigateToQuiz(BuildContext context, Level level) {
-
     AwesomeDialog(
       context: context,
       headerAnimationLoop: false,
@@ -82,11 +83,7 @@ class QuizPageWidget extends StatelessWidget {
           MaterialPageRoute(builder: (context) => QuizQuestionsWidget(level)),
         );
       },
-
     )..show();
-
-    
-
   }
 }
 
@@ -141,12 +138,27 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text('Quiz : $levelDesc'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.home),
+              color: Theme.of(context).backgroundColor,
+              onPressed: () {
+                Route route = MaterialPageRoute(
+                    builder: (context) => MultTablesHomePageWidget());
+                Navigator.pushAndRemoveUntil(context, route,(_) => false);
+              },
+            ),
+          ],
+        ),
         body: Container(
             margin: const EdgeInsets.all(40.0),
             alignment: Alignment.topCenter,
             child: Column(children: <Widget>[
-              new Padding(padding: EdgeInsets.all(20.0)),
-              new Text('Level : $levelDesc'),
+              //new Padding(padding: EdgeInsets.all(20.0)),
+              //new Text('Level : $levelDesc'),
               new Padding(padding: EdgeInsets.all(6.0)),
               new Text('Score : ${quiz.totalScore ?? 0}'),
               new Padding(padding: EdgeInsets.all(6.0)),
@@ -328,28 +340,22 @@ class ResultsPage extends StatelessWidget {
   Future<QuizSettings> getSettingsAndAct() async {
     _retrieveSettings();
     _saveSettings(quiz);
-    QuizSettings settings  = await _retrieveSettings();
-    if(QuizSettings.hasNewAllTimeTopScoreBeenSet(quiz, settings)){
-      
+    QuizSettings settings = await _retrieveSettings();
+    if (QuizSettings.hasNewAllTimeTopScoreBeenSet(quiz, settings)) {
       Vibrate.vibrate();
     }
     return settings;
   }
 
-
   Future<QuizSettings> _retrieveSettings() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     QuizSettings settings = QuizSettings.from(prefs);
-
 
     print(
         'Settings, Total time Quiz attempted: ${settings.totalTimesPlayed} times. Quiz was last played on ${settings.lastPlayed} at ${settings.lastLevel} and the score was ${settings.lastScore}. The count of questions was ${settings.countOfQuestions} \n The Top score at Level Easy was ${settings.allTimeBestScoreAtEasy}, \n The Top score at Level Medium was ${settings.allTimeBestScoreAtMed}, \n The Top score at Level Difficult was ${settings.allTimeBestScoreAtDiff}.');
 
     return settings;
-
   }
-
-
 
   _saveSettings(Quiz quiz) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -366,7 +372,7 @@ class ResultsPage extends StatelessWidget {
     await prefs.setString('lastLevel', quiz.levelOfQuiz.toString());
     await prefs.setInt('countOfQuestions', quiz.countOfQuestions);
 
-    if (QuizSettings.hasNewAllTimeTopScoreBeenSet(quiz, settings) ) {
+    if (QuizSettings.hasNewAllTimeTopScoreBeenSet(quiz, settings)) {
       if (quiz.levelOfQuiz == Level.Easy) {
         await prefs.setInt('allTimeBestScoreAtEasy', quiz.totalScore);
         await prefs.setString(
@@ -382,8 +388,6 @@ class ResultsPage extends StatelessWidget {
       }
     }
   }
-
-
 }
 
 /*DOC: 
@@ -418,15 +422,15 @@ class QuizSettings {
     lastScore = prefs.getInt('lastScore') ?? 0;
     lastLevel = prefs.getString('lastLevel');
     allTimeBestScoreAtEasy = prefs.getInt('allTimeBestScoreAtEasy') ?? 0;
-    allTimeBestScoreAtMed = prefs.getInt('allTimeBestScoreAtMed')??0;
-    allTimeBestScoreAtDiff = prefs.getInt('allTimeBestScoreAtDiff')??0;
+    allTimeBestScoreAtMed = prefs.getInt('allTimeBestScoreAtMed') ?? 0;
+    allTimeBestScoreAtDiff = prefs.getInt('allTimeBestScoreAtDiff') ?? 0;
     newAllTimeScoreSetAtEasy = prefs.getString('newAllTimeScoreSetAtEasy');
     newAllTimeScoreSetAtMed = prefs.getString('newAllTimeScoreSetAtMed');
     newAllTimeScoreSetAtDiff = prefs.getString('newAllTimeScoreSetAtDiff');
-    countOfQuestions = prefs.getInt('countOfQuestions')??0;
+    countOfQuestions = prefs.getInt('countOfQuestions') ?? 0;
   }
 
-    static bool hasNewAllTimeTopScoreBeenSet(Quiz quiz, QuizSettings settings) {
+  static bool hasNewAllTimeTopScoreBeenSet(Quiz quiz, QuizSettings settings) {
     if (quiz.levelOfQuiz == Level.Easy) {
       if (settings.allTimeBestScoreAtEasy < quiz.totalScore) {
         return true;
