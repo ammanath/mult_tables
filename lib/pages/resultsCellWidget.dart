@@ -21,7 +21,7 @@ class _ResultsCellWidgetState extends State<ResultsCellWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       child: AnimatedContainer(
-          duration: Duration(seconds: 2),
+          duration: Duration(seconds: 1),
           curve: Curves.easeIn,
           decoration: BoxDecoration(
             color:

@@ -23,8 +23,19 @@ class QuizPageWidget extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text('Quiz'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.home),
+              color: Theme.of(context).backgroundColor,
+              onPressed: () {
+                //_scrollToTop();
+              },
+            ),
+          ],
         ),
+        
         body: Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
