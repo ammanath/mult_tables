@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:mult_tables/model/enumLevel.dart';
@@ -12,37 +15,72 @@ class ResultsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var pct = (quiz.totalScore / quiz.countOfQuestions) * 100;
+
     getSettingsAndAct();
     return new WillPopScope(
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text('Quiz Results'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.home),
-              color: Theme.of(context).backgroundColor,
-              onPressed: () {
-                Route route = MaterialPageRoute(
-                    builder: (context) => MultTablesHomePageWidget());
-                Navigator.pushAndRemoveUntil(context, route, (_) => false);
-              },
-            ),
-          ],
-        ),
+        appBar: QuizAppBar(),
         body: Column(
           children: [
-            QuizResultsTableWidget(quiz: quiz),
+            SizedBox(
+              height: 50,
+            ),
+            Text(
+              '${getGreeting(pct)}',
+              style: TextStyle(color: Colors.red, fontSize: 22),
+            ),
+            RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                    text: '\n You have scored  ',
+                    style: TextStyle(color: Colors.black, fontSize: 22),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '$pct%',
+                        style: TextStyle(color: Colors.lime, fontSize: 33),
+                      ),
+                      TextSpan(
+                        text: ' in the Quiz, ',
+                        style: TextStyle(color: Colors.black, fontSize: 22),
+                      ),
+                      TextSpan(
+                        text: '\n\n Results : ',
+                        style: TextStyle(color: Colors.black, fontSize: 22),
+                      ),
+                      TextSpan(
+                        text:
+                            ' ${quiz?.totalScore} ',
+                        style: TextStyle(color: Colors.lime, fontSize: 33),
+                      ),
+                      TextSpan(
+                        text:
+                            'right from ${quiz?.countOfQuestions} questions, completed in ',
+                        style: TextStyle(color: Colors.black, fontSize: 22),
+                      ),
+                      TextSpan(
+                        text:
+                            '${quiz?.totalTime} ',
+                        style: TextStyle(color: Colors.orange[300], fontSize: 33),
+                      ),
+                      TextSpan(
+                        text:
+                            'seconds',
+                        style: TextStyle(color: Colors.black, fontSize: 22),
+                      ),
+                    ])),
+            SizedBox(
+              height: 50,
+            ),
             //Navigate to QuizPageWidget
             RaisedButton(
-                child: Text('New Quiz'),
+                child: Text('Re-try'),
                 onPressed: () => {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => QuizPageWidget()),
-                      )
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => QuizPageWidget()))
                     }),
           ],
         ),
@@ -104,32 +142,45 @@ class ResultsPage extends StatelessWidget {
   }
 }
 
-class QuizResultsTableWidget extends StatelessWidget {
-  const QuizResultsTableWidget({
+String getGreeting(double pct) {
+  String congrats = 'Congratulations!!!';
+  String betterLuck = 'Better Luck Next Time!';
+  if (pct > 50.0) {
+    return congrats;
+  } else {
+    return betterLuck;
+  }
+}
+
+//https://stackoverflow.com/questions/53411890/how-can-i-have-my-appbar-in-a-separate-file-in-flutter-while-still-having-the-wi
+class QuizAppBar extends StatelessWidget implements PreferredSizeWidget {
+  QuizAppBar({
     Key key,
-    @required this.quiz,
   }) : super(key: key);
 
-  final Quiz quiz;
+  final AppBar appBar = AppBar();
 
   @override
   Widget build(BuildContext context) {
-    var table = DataTable(columns: [
-      DataColumn(label: Text('Question')),
-      DataColumn(label: Text('Answer')),
-      DataColumn(label: Text('Correct Ans')),
-      DataColumn(label: Text('Result')),
-    ], rows: [
-      DataRow(cells: [
-        DataCell(Text('Dash')),
-        DataCell(Text('Dash')),
-        DataCell(Text('Dash')),
-        DataCell(Text('Dash')),
-      ])
-    ]);
-    return Text(
-        'Results : ${quiz?.totalScore} right from ${quiz?.countOfQuestions} questions, completed in ${quiz?.totalTime} seconds');
+    return AppBar(
+      automaticallyImplyLeading: false,
+      title: Text('Quiz Results'),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.home),
+          color: Theme.of(context).backgroundColor,
+          onPressed: () {
+            Route route = MaterialPageRoute(
+                builder: (context) => MultTablesHomePageWidget());
+            Navigator.pushAndRemoveUntil(context, route, (_) => false);
+          },
+        ),
+      ],
+    );
   }
+
+  @override
+  Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
 }
 
 /*DOC: 

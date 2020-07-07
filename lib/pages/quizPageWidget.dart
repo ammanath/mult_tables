@@ -302,4 +302,3 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     });
   }
 }
-

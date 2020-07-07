@@ -14,7 +14,7 @@ class Quiz {
 
   int get totalTime{
     int sum=0;
-    questions.forEach((e) => sum += e?.time);
+    questions.forEach((e) => sum += e?.time ?? 0);
     return sum;
   }
 
