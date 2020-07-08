@@ -6,7 +6,7 @@ import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/model/quizData.dart';
 import 'package:mult_tables/pages/homePageWidget.dart';
-import 'package:mult_tables/pages/quizPageWidget.dart';
+import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ResultsPage extends StatelessWidget {
@@ -80,7 +80,7 @@ class ResultsPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => QuizPageWidget()))
+                              builder: (context) => QuizLevelsPageWidget()))
                     }),
           ],
         ),

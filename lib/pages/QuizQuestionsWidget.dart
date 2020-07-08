@@ -1,92 +1,11 @@
-import 'dart:async';
-
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/model/quizData.dart';
+import 'package:mult_tables/pages/HomeIconButtonWidget.dart';
 import 'package:mult_tables/pages/homePageWidget.dart';
 import 'package:mult_tables/pages/resultsPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-class QuizPageWidget extends StatelessWidget {
-  const QuizPageWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    const levelEasy = 'Easy';
-    const levelMedium = 'Medium';
-    const levelDiff = 'Difficult';
-
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text('Quiz'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.home),
-              color: Theme.of(context).backgroundColor,
-              onPressed: () {
-                Route route = MaterialPageRoute(
-                    builder: (context) => MultTablesHomePageWidget());
-                Navigator.pushAndRemoveUntil(context, route, (_) => false);
-              },
-            ),
-          ],
-        ),
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            RaisedButton(
-              onPressed: () {
-                navigateToQuiz(context, Level.Easy);
-              },
-              child: Text('$levelEasy (0 to 5)'),
-            ),
-            RaisedButton(
-              onPressed: () {
-                navigateToQuiz(context, Level.Medium);
-              },
-              child: Text('$levelMedium (5 to 12)'),
-            ),
-            RaisedButton(
-              onPressed: () {
-                navigateToQuiz(context, Level.Difficult);
-              },
-              child: Text('$levelDiff (8 to 15)'),
-            ),
-          ],
-        )),
-      ),
-    );
-  }
-
-  void navigateToQuiz(BuildContext context, Level level) {
-    AwesomeDialog(
-      context: context,
-      headerAnimationLoop: false,
-      dialogType: DialogType.INFO,
-      animType: AnimType.SCALE,
-      title: 'Ready for Quiz?',
-      desc:
-          'You have selected the ${level == Level.Easy ? 'Easy' : level == Level.Medium ? 'Medium' : 'Difficult'} level. There will be ${_QuizQuestionsWidgetState.countOfQuestions} questions in the quiz and you will have ${_QuizQuestionsWidgetState._countDownTime} seconds for each question. \n All the best!',
-      btnOkText: 'Go',
-      btnCancelOnPress: () {},
-      btnOkOnPress: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => QuizQuestionsWidget(level)),
-        );
-      },
-    )..show();
-  }
-}
 
 class QuizQuestionsWidget extends StatefulWidget {
   final Level quizLevel;
@@ -94,10 +13,10 @@ class QuizQuestionsWidget extends StatefulWidget {
   QuizQuestionsWidget(this.quizLevel);
 
   @override
-  _QuizQuestionsWidgetState createState() => _QuizQuestionsWidgetState();
+  QuizQuestionsWidgetState createState() => QuizQuestionsWidgetState();
 }
 
-class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
+class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   static const countOfQuestions = 8;
   Level level; // = widget.quizLevel;
   Quiz quiz = null; //Quiz(countOfQuestions, 17, 0, true);
@@ -106,7 +25,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   int answer = 0;
   int selected = -1;
   double _progressValue = 0;
-  static const int _countDownTime = 10;
+  static const int countDownTime = 10;
 
   @override
   void initState() {
@@ -139,27 +58,19 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
+        backgroundColor: Theme.of(context).secondaryHeaderColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text('Quiz : $levelDesc'),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.home),
-              color: Theme.of(context).backgroundColor,
-              onPressed: () {
-                Route route = MaterialPageRoute(
-                    builder: (context) => MultTablesHomePageWidget());
-                Navigator.pushAndRemoveUntil(context, route, (_) => false);
-              },
-            ),
+            HomeIconButtonWidget(),
           ],
         ),
         body: Container(
+            color: Theme.of(context).secondaryHeaderColor,
             margin: const EdgeInsets.all(40.0),
             alignment: Alignment.topCenter,
             child: Column(children: <Widget>[
-              //new Padding(padding: EdgeInsets.all(20.0)),
-              //new Text('Level : $levelDesc'),
               new Padding(padding: EdgeInsets.all(6.0)),
               new Text('Score : ${quiz.totalScore ?? 0}'),
               new Padding(padding: EdgeInsets.all(6.0)),
@@ -248,7 +159,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                       updateQuestion(timeL);
                       print('In onTap for 1 , time left is $timeL');
                     },
-                    initialTimer: _countDownTime,
+                    initialTimer: countDownTime,
 
                     child: Text(
                       selected == -1 ? 'Next' : 'Submit',
@@ -281,7 +192,7 @@ class _QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   updateQuestion(int timeInSeconds) {
     print('In udpateQuestion, $selected');
     quiz.questions[questionNo].selected = selected;
-    quiz.questions[questionNo].time = _countDownTime - timeInSeconds;
+    quiz.questions[questionNo].time = countDownTime - timeInSeconds;
     setState(() {
       if (questionNo == quiz.countOfQuestions - 1) {
         Navigator.push(

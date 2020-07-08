@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:mult_tables/pages/cellWidget.dart';
-import 'package:mult_tables/pages/quizPageWidget.dart';
+import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
 import 'package:mult_tables/pages/tablePageWidget.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -65,7 +65,7 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => QuizPageWidget()),
+                  MaterialPageRoute(builder: (context) => QuizLevelsPageWidget()),
                 );
               },
             ),
