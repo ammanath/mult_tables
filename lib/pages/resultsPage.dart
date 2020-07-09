@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/model/quizData.dart';
 import 'package:mult_tables/pages/homePageWidget.dart';
@@ -99,7 +98,7 @@ class ResultsPage extends StatelessWidget {
     _saveSettings(quiz);
     QuizSettings settings = await _retrieveSettings();
     if (QuizSettings.hasNewAllTimeTopScoreBeenSet(quiz, settings)) {
-      Vibrate.vibrate();
+     // Vibrate.vibrate();
     }
     return settings;
   }
