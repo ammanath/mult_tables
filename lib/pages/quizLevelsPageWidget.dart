@@ -36,7 +36,7 @@ class QuizLevelsPageWidget extends StatelessWidget {
               radius: 30,
               padding: const EdgeInsets.all(10),
               text: '$levelEasy (0 to 5)',
-              icon: Icons.account_box,
+              icon: Icons.child_friendly,
               gradientColors: [secondColor, firstColor],
               onPressed: () {
                 navigateToQuiz(context, Level.Easy);
@@ -46,7 +46,7 @@ class QuizLevelsPageWidget extends StatelessWidget {
               radius: 30,
               padding: const EdgeInsets.all(10),
               text: '$levelMedium (5 to 12)',
-              icon: Icons.account_box,
+              icon: Icons.child_care,
               gradientColors: [secondColor, firstColor],
               onPressed: () {
                 navigateToQuiz(context, Level.Medium);
@@ -56,7 +56,7 @@ class QuizLevelsPageWidget extends StatelessWidget {
               radius: 30,
               padding: const EdgeInsets.all(10),
               text: '$levelDiff (8 to 15)',
-              icon: Icons.account_box,
+              icon: Icons.person,
               gradientColors: [secondColor, firstColor],
               onPressed: () {
                 navigateToQuiz(context, Level.Difficult);
