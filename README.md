@@ -10,7 +10,7 @@ An application to learn multiplication and to test your knowledge with a quiz
 
 ## About the application
 
-Privacy: http://www.ammanath.com/kkprivacy.html
+Privacy: http://www.ammanath.com/mathprivacy.html
 
 ## To replace the default icon  
     PS C:\working\FlutterProjs\mult_tables> flutter pub get

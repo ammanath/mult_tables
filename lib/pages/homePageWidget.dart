@@ -144,7 +144,7 @@ class ReviewButton extends StatelessWidget {
               size: 100,
               color: Colors.blue,
             ), // set your own image/icon widget
-            title: "Enjoying the KK Advice app?",
+            title: "Enjoying the Math Advice app?",
             description: "Tap a star to give your rating.",
             submitButton: "SUBMIT",
             positiveComment: "I'm delighted! 😍😍😍", // optional
@@ -177,10 +177,9 @@ class AboutButton extends StatelessWidget {
 
   void showAboutDialog(BuildContext context) {
     String textAbout =
-        'Unsolicited app on KK\'s 68 bits of unsolicitied life advice \n';
-    String url = 'https://kk.org/thetechnium/68-bits-of-unsolicited-advice/ ';
-    String youTube = 'https://www.youtube.com/watch?v=Zz70rcguxwk';
-    String email = 'mailto:kkapp@ammanath.com?subject=Feedback_about_kkapp';
+        'Math App \nAn application to learn multiplication and to test your knowledge with a quiz';
+
+    String email = 'mailto:mathapp@ammanath.com?subject=Feedback_about_mathapp';
     String thanks = '\nThanks for trying my app! ';
     String signature = '\n\n- Brijesh';
     showDialog(
@@ -224,25 +223,11 @@ class AboutButton extends StatelessWidget {
             backgroundColor: Colors.blue[100],
             actions: <Widget>[
               IconButton(
-                icon: Icon(Icons.open_in_browser),
-                color: Colors.red,
-                alignment: Alignment.bottomLeft,
-                tooltip: 'Read in browser',
-                onPressed: () => _launchURL(url),
-              ),
-              IconButton(
                 icon: Icon(Icons.feedback),
                 color: Colors.pink,
                 alignment: Alignment.bottomLeft,
                 tooltip: 'email',
                 onPressed: () => _launchURL(email),
-              ),
-              IconButton(
-                icon: Icon(Icons.videocam),
-                color: Colors.green,
-                alignment: Alignment.bottomLeft,
-                tooltip: 'YouTube',
-                onPressed: () => _launchURL(youTube),
               ),
               RaisedButton(
                 child: Text('Ok',
