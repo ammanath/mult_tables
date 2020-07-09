@@ -7,6 +7,7 @@ import 'package:mult_tables/pages/tablePageWidget.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+//TODO:File name does not match class name - FIX
 class MultTablesHomePageWidget extends StatefulWidget {
   const MultTablesHomePageWidget({
     Key key,
@@ -37,9 +38,9 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
   }
 
   _scrollToTop() {
-      _scrollController.animateTo(_scrollController.position.minScrollExtent,
-          duration: Duration(milliseconds: 1000), curve: Curves.easeIn);
-      setState(() => _isOnTop = true);
+    _scrollController.animateTo(_scrollController.position.minScrollExtent,
+        duration: Duration(milliseconds: 1000), curve: Curves.easeIn);
+    setState(() => _isOnTop = true);
   }
 
   @override
@@ -49,7 +50,9 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
       appBar: AppBar(
           title: Text(
             'Math',
-            style: GoogleFonts.spaceMono(fontSize: 26, color: Colors.black),
+            style: TextStyle(
+              fontFamily: 'Fondamento',
+            ), //GoogleFonts.spaceMono(fontSize: 26, color: Colors.black),
           ),
           actions: <Widget>[
             IconButton(
@@ -65,7 +68,8 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => QuizLevelsPageWidget()),
+                  MaterialPageRoute(
+                      builder: (context) => QuizLevelsPageWidget()),
                 );
               },
             ),

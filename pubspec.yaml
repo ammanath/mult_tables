@@ -51,7 +51,15 @@ flutter_icons:
 
 # The following section is specific to Flutter.
 flutter:
-
+  fonts:
+    - family: DancingScript     
+      fonts:
+        - asset: assets/dancing_script.ttf
+    - family: Fondamento     
+      fonts:
+        - asset: assets/fondamentoReg.ttf
+        - asset: assets/fondamentoIta.ttf
+          style: italic
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

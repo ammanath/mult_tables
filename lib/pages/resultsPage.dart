@@ -5,6 +5,7 @@ import 'package:mult_tables/model/quizData.dart';
 import 'package:mult_tables/pages/homePageWidget.dart';
 import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
 import 'package:mult_tables/pages/quizSettings.dart';
+import 'package:nice_button/nice_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ResultsPage extends StatelessWidget {
@@ -14,7 +15,7 @@ class ResultsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var pct = (quiz.totalScore / quiz.countOfQuestions) * 100;
-
+    var firstColor = Color(0xff5b86e5), secondColor = Color(0xff36d1dc);
     getSettingsAndAct();
     return new WillPopScope(
       child: Scaffold(
@@ -27,17 +28,17 @@ class ResultsPage extends StatelessWidget {
             ),
             Text(
               '${getGreeting(pct)}',
-              style: TextStyle(color: Colors.red, fontSize: 22),
+              style: TextStyle(color: Colors.red, fontSize: 28,fontFamily: 'Fondamento',),
             ),
             RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                     text: '\n You have scored  ',
-                    style: TextStyle(color: Colors.black, fontSize: 22),
+                    style: TextStyle(color: Colors.black, fontSize: 22, fontFamily: 'DancingScript',),
                     children: <TextSpan>[
                       TextSpan(
                         text: '$pct%',
-                        style: TextStyle(color: Colors.lime, fontSize: 33),
+                        style: TextStyle(color: Colors.lime, fontSize: 33,fontFamily: 'Fondamento',),
                       ),
                       TextSpan(
                         text: ' in the Quiz, ',
@@ -50,7 +51,7 @@ class ResultsPage extends StatelessWidget {
                       TextSpan(
                         text:
                             ' ${quiz?.totalScore} ',
-                        style: TextStyle(color: Colors.lime, fontSize: 33),
+                        style: TextStyle(color: Colors.lime, fontSize: 33,fontFamily: 'Fondamento'),
                       ),
                       TextSpan(
                         text:
@@ -60,7 +61,7 @@ class ResultsPage extends StatelessWidget {
                       TextSpan(
                         text:
                             '${quiz?.totalTime} ',
-                        style: TextStyle(color: Colors.orange[300], fontSize: 33),
+                        style: TextStyle(color: Colors.orange[300], fontSize: 33,fontFamily: 'Fondamento'),
                       ),
                       TextSpan(
                         text:
@@ -72,14 +73,20 @@ class ResultsPage extends StatelessWidget {
               height: 50,
             ),
             //Navigate to QuizPageWidget
-            RaisedButton(
-                child: Text('Re-try'),
-                onPressed: () => {
+            NiceButton(
+              radius: 30,
+              padding: const EdgeInsets.all(10),
+              text: 'Re-try',
+              icon: Icons.rotate_right,
+              gradientColors: [secondColor, firstColor],
+              onPressed: () => {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => QuizLevelsPageWidget()))
                     }),
+            
+            
           ],
         ),
       ),

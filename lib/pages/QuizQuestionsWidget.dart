@@ -61,7 +61,12 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
         backgroundColor: Theme.of(context).secondaryHeaderColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text('Quiz : $levelDesc'),
+          title: Text(
+            'Quiz : $levelDesc',
+            style: TextStyle(
+              fontFamily: 'Fondamento',
+            ),
+          ),
           actions: <Widget>[
             HomeIconButtonWidget(),
           ],
