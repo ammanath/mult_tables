@@ -5,6 +5,7 @@ import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/pages/HomeIconButtonWidget.dart';
 import 'package:mult_tables/pages/QuizQuestionsWidget.dart';
 import 'package:mult_tables/pages/homePageWidget.dart';
+import 'package:nice_button/nice_button.dart';
 
 class QuizLevelsPageWidget extends StatelessWidget {
   const QuizLevelsPageWidget({
@@ -16,6 +17,7 @@ class QuizLevelsPageWidget extends StatelessWidget {
     const levelEasy = 'Easy';
     const levelMedium = 'Medium';
     const levelDiff = 'Difficult';
+    var firstColor = Color(0xff5b86e5), secondColor = Color(0xff36d1dc);
 
     return SafeArea(
       child: Scaffold(
@@ -30,23 +32,35 @@ class QuizLevelsPageWidget extends StatelessWidget {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            RaisedButton(
+            NiceButton(
+              radius: 30,
+              padding: const EdgeInsets.all(10),
+              text: '$levelEasy (0 to 5)',
+              icon: Icons.account_box,
+              gradientColors: [secondColor, firstColor],
               onPressed: () {
                 navigateToQuiz(context, Level.Easy);
               },
-              child: Text('$levelEasy (0 to 5)'),
             ),
-            RaisedButton(
+            NiceButton(
+              radius: 30,
+              padding: const EdgeInsets.all(10),
+              text: '$levelMedium (5 to 12)',
+              icon: Icons.account_box,
+              gradientColors: [secondColor, firstColor],
               onPressed: () {
                 navigateToQuiz(context, Level.Medium);
               },
-              child: Text('$levelMedium (5 to 12)'),
             ),
-            RaisedButton(
+            NiceButton(
+              radius: 30,
+              padding: const EdgeInsets.all(10),
+              text: '$levelDiff (8 to 15)',
+              icon: Icons.account_box,
+              gradientColors: [secondColor, firstColor],
               onPressed: () {
                 navigateToQuiz(context, Level.Difficult);
               },
-              child: Text('$levelDiff (8 to 15)'),
             ),
           ],
         )),
