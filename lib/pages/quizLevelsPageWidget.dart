@@ -1,10 +1,11 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/pages/HomeIconButtonWidget.dart';
 import 'package:mult_tables/pages/QuizQuestionsWidget.dart';
-import 'package:mult_tables/pages/homePageWidget.dart';
+import 'package:mult_tables/pages/multTablesHomePageWidget.dart';
 import 'package:nice_button/nice_button.dart';
 
 class QuizLevelsPageWidget extends StatelessWidget {
@@ -23,7 +24,9 @@ class QuizLevelsPageWidget extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text('Quiz'),
+          title: Text('Quiz',style: TextStyle(
+              fontFamily: 'Fondamento',
+            ),),
           actions: <Widget>[
             HomeIconButtonWidget(),
           ],
@@ -36,6 +39,7 @@ class QuizLevelsPageWidget extends StatelessWidget {
               radius: 30,
               padding: const EdgeInsets.all(10),
               text: '$levelEasy (0 to 5)',
+              fontSize: 18,
               icon: Icons.child_friendly,
               gradientColors: [secondColor, firstColor],
               onPressed: () {
@@ -46,6 +50,7 @@ class QuizLevelsPageWidget extends StatelessWidget {
               radius: 30,
               padding: const EdgeInsets.all(10),
               text: '$levelMedium (5 to 12)',
+              fontSize: 18,
               icon: Icons.child_care,
               gradientColors: [secondColor, firstColor],
               onPressed: () {
@@ -56,6 +61,7 @@ class QuizLevelsPageWidget extends StatelessWidget {
               radius: 30,
               padding: const EdgeInsets.all(10),
               text: '$levelDiff (8 to 15)',
+              fontSize: 18,
               icon: Icons.person,
               gradientColors: [secondColor, firstColor],
               onPressed: () {

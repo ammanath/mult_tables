@@ -1,10 +1,11 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/model/quizData.dart';
 import 'package:mult_tables/pages/HomeIconButtonWidget.dart';
-import 'package:mult_tables/pages/homePageWidget.dart';
+import 'package:mult_tables/pages/multTablesHomePageWidget.dart';
 import 'package:mult_tables/pages/resultsPage.dart';
 
 class QuizQuestionsWidget extends StatefulWidget {
@@ -87,12 +88,17 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                 ),
               ),
               new Padding(padding: EdgeInsets.all(6.0)),
+              //TODO: add a line seperator
               new Text(
                 '$q1',
-                style: TextStyle(
-                  fontSize: 22,
+                style: GoogleFonts.rumRaisin(
+                  fontSize: 40,
                   color: Colors.deepOrange,
                 ),
+                // style: TextStyle(
+                //   fontSize: 22,
+                //   color: Colors.deepOrange,
+                // ),
               ),
               new Padding(padding: EdgeInsets.all(8.0)),
               LinearProgressIndicator(

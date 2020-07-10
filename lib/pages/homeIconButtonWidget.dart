@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mult_tables/pages/homePageWidget.dart';
+import 'package:mult_tables/pages/multTablesHomePageWidget.dart';
 
 class HomeIconButtonWidget extends StatelessWidget {
   const HomeIconButtonWidget({

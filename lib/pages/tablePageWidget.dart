@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mult_tables/pages/cellWidget.dart';
-import 'package:mult_tables/pages/helper.dart';
+import 'package:mult_tables/pages/appBarProvider.dart';
 import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
 import 'package:mult_tables/pages/resultsCellWidget.dart';
 
