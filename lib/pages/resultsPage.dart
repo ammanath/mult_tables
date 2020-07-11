@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/model/quizData.dart';
+import 'package:mult_tables/pages/QuizAppBarWidget.dart';
 import 'package:mult_tables/pages/multTablesHomePageWidget.dart';
 import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
 import 'package:mult_tables/pages/quizSettings.dart';
@@ -19,7 +20,7 @@ class ResultsPage extends StatelessWidget {
     return new WillPopScope(
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        appBar: QuizAppBar(),
+        appBar: QuizAppBarWidget(),
         body: Column(
           children: [
             SizedBox(
@@ -154,36 +155,5 @@ String getGreeting(double pct) {
   } else {
     return betterLuck;
   }
-}
-
-//https://stackoverflow.com/questions/53411890/how-can-i-have-my-appbar-in-a-separate-file-in-flutter-while-still-having-the-wi
-class QuizAppBar extends StatelessWidget implements PreferredSizeWidget {
-  QuizAppBar({
-    Key key,
-  }) : super(key: key);
-
-  final AppBar appBar = AppBar();
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      title: Text('Quiz Results'),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.home),
-          color: Theme.of(context).backgroundColor,
-          onPressed: () {
-            Route route = MaterialPageRoute(
-                builder: (context) => MultTablesHomePageWidget());
-            Navigator.pushAndRemoveUntil(context, route, (_) => false);
-          },
-        ),
-      ],
-    );
-  }
-
-  @override
-  Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
 }
 

@@ -1,11 +1,10 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/pages/HomeIconButtonWidget.dart';
 import 'package:mult_tables/pages/QuizQuestionsWidget.dart';
-import 'package:mult_tables/pages/multTablesHomePageWidget.dart';
+import 'package:mult_tables/pages/niceButtonWidget.dart';
 import 'package:nice_button/nice_button.dart';
 
 class QuizLevelsPageWidget extends StatelessWidget {
@@ -24,9 +23,12 @@ class QuizLevelsPageWidget extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text('Quiz',style: TextStyle(
+          title: Text(
+            'Quiz',
+            style: TextStyle(
               fontFamily: 'Fondamento',
-            ),),
+            ),
+          ),
           actions: <Widget>[
             HomeIconButtonWidget(),
           ],
@@ -35,39 +37,10 @@ class QuizLevelsPageWidget extends StatelessWidget {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            NiceButton(
-              radius: 30,
-              padding: const EdgeInsets.all(10),
-              text: '$levelEasy (0 to 5)',
-              fontSize: 18,
-              icon: Icons.child_friendly,
-              gradientColors: [secondColor, firstColor],
-              onPressed: () {
-                navigateToQuiz(context, Level.Easy);
-              },
-            ),
-            NiceButton(
-              radius: 30,
-              padding: const EdgeInsets.all(10),
-              text: '$levelMedium (5 to 12)',
-              fontSize: 18,
-              icon: Icons.child_care,
-              gradientColors: [secondColor, firstColor],
-              onPressed: () {
-                navigateToQuiz(context, Level.Medium);
-              },
-            ),
-            NiceButton(
-              radius: 30,
-              padding: const EdgeInsets.all(10),
-              text: '$levelDiff (8 to 15)',
-              fontSize: 18,
-              icon: Icons.person,
-              gradientColors: [secondColor, firstColor],
-              onPressed: () {
-                navigateToQuiz(context, Level.Difficult);
-              },
-            ),
+            NiceButtonWidget(buttonText: '$levelEasy (0 to 5)', level: Level.Easy,icon:Icons.child_friendly),
+            NiceButtonWidget(buttonText: '$levelMedium (5 to 12)', level: Level.Medium,icon:Icons.child_care),
+            NiceButtonWidget(buttonText: '$levelDiff (8 to 15)', level: Level.Difficult,icon:Icons.person),
+            
           ],
         )),
         backgroundColor: Theme.of(context).secondaryHeaderColor,

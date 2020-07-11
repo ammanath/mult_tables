@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:launch_review/launch_review.dart';
 import 'package:mult_tables/pages/aboutButtonWidget.dart';
 import 'package:mult_tables/pages/cellWidget.dart';
+import 'package:mult_tables/pages/quizIconButtonWidget.dart';
 import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
 import 'package:mult_tables/pages/reviewButtonWidget.dart';
 import 'package:mult_tables/pages/tablePageWidget.dart';
-import 'package:rating_dialog/rating_dialog.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-//TODO:File name does not match class name - FIX
 class MultTablesHomePageWidget extends StatefulWidget {
   const MultTablesHomePageWidget({
     Key key,
@@ -54,7 +50,7 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
             'Math',
             style: TextStyle(
               fontFamily: 'Fondamento',
-            ), //GoogleFonts.spaceMono(fontSize: 26, color: Colors.black),
+            ), 
           ),
           actions: <Widget>[
             IconButton(
@@ -64,17 +60,7 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
                 scrollToTop();
               },
             ),
-            IconButton(
-              icon: Icon(Icons.question_answer),
-              color: Theme.of(context).backgroundColor,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => QuizLevelsPageWidget()),
-                );
-              },
-            ),
+            QuizIconButtonWidget(),
             ReviewButton(),
             AboutButton(),
           ]),
