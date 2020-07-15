@@ -1,10 +1,12 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:mult_tables/pages/aboutButtonWidget.dart';
 import 'package:mult_tables/pages/cellWidget.dart';
 import 'package:mult_tables/pages/quizIconButtonWidget.dart';
-import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
 import 'package:mult_tables/pages/reviewButtonWidget.dart';
 import 'package:mult_tables/pages/tablePageWidget.dart';
+
+const String testDevice = 'MobileMathId';
 
 class MultTablesHomePageWidget extends StatefulWidget {
   const MultTablesHomePageWidget({
@@ -23,14 +25,50 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
   final dataKey = new GlobalKey();
   var items = List<String>.generate(10000, (i) => "Item $i");
 
+  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    testDevices: testDevice != null ? <String>[testDevice] : null,
+    nonPersonalizedAds: true,
+    keywords: <String>['Game', 'Maths', 'Puzzle', 'Memory'],
+  );
+
+  BannerAd _bannerAd;
+  InterstitialAd _interstitialAd;
+
+  BannerAd createBannerAd() {
+    return BannerAd(
+        adUnitId: 'ca-app-pub-6888147562274579/9373520117',
+        size: AdSize.banner,
+        targetingInfo: targetingInfo,
+        listener: (MobileAdEvent event) {
+          print("BannerAd $event");
+        });
+  }
+
+  InterstitialAd createInterstitialAd() {
+    return InterstitialAd(
+        adUnitId: 'ca-app-pub-6888147562274579/2010568245',
+        targetingInfo: targetingInfo,
+        listener: (MobileAdEvent event) {
+          print("IntersttialAd $event");
+        });
+  }
+
   @override
   void initState() {
+    FirebaseAdMob.instance
+        .initialize(appId: 'ca-app-pub-6888147562274579~4828303279');
+    _bannerAd = createBannerAd()
+      ..load()
+      ..show();
+
     super.initState();
     _scrollController = ScrollController();
   }
 
   @override
   void dispose() {
+    _bannerAd.dispose();
+    _interstitialAd.dispose();
     _scrollController.dispose();
     super.dispose();
   }
@@ -50,13 +88,18 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
             'Math',
             style: TextStyle(
               fontFamily: 'Fondamento',
-            ), 
+            ),
           ),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.home),
               color: Theme.of(context).backgroundColor,
               onPressed: () {
+                
+                createInterstitialAd()
+                  ..load()
+                  ..show();
+                  
                 scrollToTop();
               },
             ),
@@ -104,4 +147,3 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
 
   String getCellText(int i) => (i + 2).toString();
 }
-

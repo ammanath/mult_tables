@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "608808130975",
+    "firebase_url": "https://mathapp-c8880.firebaseio.com",
+    "project_id": "mathapp-c8880",
+    "storage_bucket": "mathapp-c8880.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608808130975:android:d196e7c9e00623dda305aa",
+        "android_client_info": {
+          "package_name": "com.ammanath.mult_tables"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608808130975-0kfe0cjqpiagspsiroeq90rshf674l8d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtuM45SgvoAeiYeLlKXyWdD9VXTgZnsXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608808130975-0kfe0cjqpiagspsiroeq90rshf674l8d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

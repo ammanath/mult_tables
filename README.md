@@ -34,3 +34,15 @@ The release bundle for your app is created at
 C:\working\FlutterProjs\mult_tables\build\app\outputs\bundle\release
 
 Privacy: http://www.ammanath.com/mathprivacy.html
+
+# To add advts
+    Tutorial: 
+    https://www.youtube.com/watch?v=2sLAcHDfbcQ
+    https://www.youtube.com/watch?v=PxYiLDuS3hk
+
+    Dependency:   firebase_admob
+    Create app in Firebase.
+        Update classpath, plugin and implementation in build.gradle in android and android\app
+        Add google-services.json to android\app 
+    Add ApplicaitonId in AndroidManifest.xml
+    Add code to call AdMob in stateful widget

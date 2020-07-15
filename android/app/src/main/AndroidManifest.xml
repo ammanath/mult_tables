@@ -10,6 +10,9 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Math Quick Tables!"
         android:icon="@mipmap/ic_launcher">
+        <meta-data                                                    
+    android:name="com.google.android.gms.ads.APPLICATION_ID"   
+    android:value="ca-app-pub-6888147562274579~4828303279"/>        
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
