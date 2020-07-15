@@ -17,7 +17,7 @@ class QuizQuestionsWidget extends StatefulWidget {
 }
 
 class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
-  static const countOfQuestions = 8;
+  static const countOfQuestions = 15;
   Level level; // = widget.quizLevel;
   Quiz quiz = null; //Quiz(countOfQuestions, 17, 0, true);
   var question = '';

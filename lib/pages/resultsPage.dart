@@ -15,6 +15,7 @@ class ResultsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var pct = (quiz.totalScore / quiz.countOfQuestions) * 100;
+    pct = num.parse(pct.toStringAsFixed(2));
     var firstColor = Color(0xff5b86e5), secondColor = Color(0xff36d1dc);
     getSettingsAndAct();
     return new WillPopScope(
