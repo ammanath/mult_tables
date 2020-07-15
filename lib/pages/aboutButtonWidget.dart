@@ -25,6 +25,7 @@ class AboutButton extends StatelessWidget {
     String email = 'mailto:mathapp@ammanath.com?subject=Feedback_about_mathapp';
     String thanks = '\nThanks for trying my app! ';
     String signature = '\n\n- Brijesh';
+    String version = '\n\t\t\t- v1.2';
     showDialog(
         context: context,
         barrierDismissible: true,
@@ -51,7 +52,11 @@ class AboutButton extends StatelessWidget {
                   TextSpan(
                       text: signature,
                       style: GoogleFonts.dancingScript(
-                          fontSize: 20, color: Colors.blue))
+                          fontSize: 20, color: Colors.blue)),
+                  TextSpan(
+                      text: version,
+                      style: GoogleFonts.dancingScript(
+                          fontSize:8, color: Colors.purple))
                 ],
               ),
             ),
