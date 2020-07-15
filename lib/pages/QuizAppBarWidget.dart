@@ -13,7 +13,9 @@ class QuizAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      title: Text('Quiz Results'),
+      title: Text('Quiz Results', style:TextStyle(
+              fontFamily: 'Fondamento',
+            )),
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.home),
