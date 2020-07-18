@@ -25,34 +25,49 @@ class ResultsPage extends StatelessWidget {
         body: Column(
           children: [
             SizedBox(
-              height: 50,
+              height: 10,
             ),
             Text(
               '${getGreeting(pct)}',
-              style: TextStyle(color: Colors.red, fontSize: 28,fontFamily: 'Fondamento',),
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 28,
+                fontFamily: 'Fondamento',
+              ),
             ),
+            getImage(pct),
             RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                     text: '\n You have scored  ',
-                    style: TextStyle(color: Colors.black, fontSize: 22, fontFamily: 'DancingScript',),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontFamily: 'DancingScript',
+                    ),
                     children: <TextSpan>[
                       TextSpan(
                         text: '$pct%',
-                        style: TextStyle(color: Colors.lime, fontSize: 33,fontFamily: 'Fondamento',),
+                        style: TextStyle(
+                          color: Colors.lime,
+                          fontSize: 33,
+                          fontFamily: 'Fondamento',
+                        ),
                       ),
                       TextSpan(
                         text: ' in the Quiz, ',
                         style: TextStyle(color: Colors.black, fontSize: 22),
                       ),
                       TextSpan(
-                        text: '\n\n Results : ',
+                        text: '\n Results : ',
                         style: TextStyle(color: Colors.black, fontSize: 22),
                       ),
                       TextSpan(
-                        text:
-                            ' ${quiz?.totalScore} ',
-                        style: TextStyle(color: Colors.lime, fontSize: 33,fontFamily: 'Fondamento'),
+                        text: ' ${quiz?.totalScore} ',
+                        style: TextStyle(
+                            color: Colors.lime,
+                            fontSize: 33,
+                            fontFamily: 'Fondamento'),
                       ),
                       TextSpan(
                         text:
@@ -60,13 +75,14 @@ class ResultsPage extends StatelessWidget {
                         style: TextStyle(color: Colors.black, fontSize: 22),
                       ),
                       TextSpan(
-                        text:
-                            '${quiz?.totalTime} ',
-                        style: TextStyle(color: Colors.orange[300], fontSize: 33,fontFamily: 'Fondamento'),
+                        text: '${quiz?.totalTime} ',
+                        style: TextStyle(
+                            color: Colors.orange[300],
+                            fontSize: 33,
+                            fontFamily: 'Fondamento'),
                       ),
                       TextSpan(
-                        text:
-                            'seconds',
+                        text: 'seconds',
                         style: TextStyle(color: Colors.black, fontSize: 22),
                       ),
                     ])),
@@ -75,19 +91,17 @@ class ResultsPage extends StatelessWidget {
             ),
             //Navigate to QuizPageWidget
             NiceButton(
-              radius: 30,
-              padding: const EdgeInsets.all(10),
-              text: 'Re-try',
-              icon: Icons.rotate_right,
-              gradientColors: [secondColor, firstColor],
-              onPressed: () => {
+                radius: 30,
+                padding: const EdgeInsets.all(10),
+                text: 'Re-try',
+                icon: Icons.rotate_right,
+                gradientColors: [secondColor, firstColor],
+                onPressed: () => {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => QuizLevelsPageWidget()))
                     }),
-            
-            
           ],
         ),
       ),
@@ -100,7 +114,7 @@ class ResultsPage extends StatelessWidget {
     _saveSettings(quiz);
     QuizSettings settings = await _retrieveSettings();
     if (QuizSettings.hasNewAllTimeTopScoreBeenSet(quiz, settings)) {
-     // Vibrate.vibrate();
+      // Vibrate.vibrate();
     }
     return settings;
   }
@@ -158,3 +172,18 @@ String getGreeting(double pct) {
   }
 }
 
+Container getImage(double pct) {
+  Image won = Image.asset('assets/images/congrats.gif');
+  Image lost = Image.asset('assets/images/lost.gif');
+  if (pct > 50.0) {
+    return Container(
+      child: won,
+      height: 150,
+    );
+  } else {
+    return Container(
+      child: lost,
+      height: 150,
+    );
+  }
+}
