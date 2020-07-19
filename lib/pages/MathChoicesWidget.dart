@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mult_tables/pages/aboutButtonWidget.dart';
 import 'package:mult_tables/pages/multTablesHomePageWidget.dart';
-import 'package:mult_tables/pages/quizIconButtonWidget.dart';
 import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
 import 'package:mult_tables/pages/reviewButtonWidget.dart';
 import 'package:nice_button/nice_button.dart';

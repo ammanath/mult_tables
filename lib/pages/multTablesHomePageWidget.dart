@@ -36,7 +36,8 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
 
   BannerAd createBannerAd() {
     return BannerAd(
-        adUnitId: 'ca-app-pub-6888147562274579/9373520117',
+        //adUnitId: 'ca-app-pub-6888147562274579/9373520117',//Real
+        adUnitId: 'ca-app-pub-3940256099942544/6300978111',//Test
         size: AdSize.banner,
         targetingInfo: targetingInfo,
         listener: (MobileAdEvent event) {
@@ -46,7 +47,8 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
 
   InterstitialAd createInterstitialAd() {
     return InterstitialAd(
-        adUnitId: 'ca-app-pub-6888147562274579/2010568245',
+        //adUnitId: 'ca-app-pub-6888147562274579/2010568245',//Real
+        adUnitId: '	ca-app-pub-3940256099942544/1033173712',//Test
         targetingInfo: targetingInfo,
         listener: (MobileAdEvent event) {
           print("IntersttialAd $event");
