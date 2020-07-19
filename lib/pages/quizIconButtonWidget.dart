@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mult_tables/pages/MathChoicesWidget.dart';
 import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
 
 class QuizIconButtonWidget extends StatelessWidget {
@@ -15,7 +16,8 @@ class QuizIconButtonWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => QuizLevelsPageWidget()),
+              //builder: (context) => QuizLevelsPageWidget()),
+              builder:(context)=> MathChoices()),
         );
       },
     );
