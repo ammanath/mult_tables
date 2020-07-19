@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mult_tables/pages/aboutButtonWidget.dart';
+import 'package:mult_tables/pages/multTablesHomePageWidget.dart';
 import 'package:mult_tables/pages/quizIconButtonWidget.dart';
 import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
 import 'package:mult_tables/pages/reviewButtonWidget.dart';
@@ -11,17 +12,26 @@ class MathChoices extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            'Math',
-            style: TextStyle(
-              fontFamily: 'Fondamento',
-            ),
+        title: Text(
+          'Math',
+          style: TextStyle(
+            fontFamily: 'Fondamento',
           ),
-          actions: <Widget>[
-            QuizIconButtonWidget(),
-            ReviewButton(),
-            AboutButton(),
-          ]),
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.home),
+            color: Theme.of(context).backgroundColor,
+            onPressed: () {
+              Route route = MaterialPageRoute(
+                  builder: (context) => MultTablesHomePageWidget());
+              Navigator.pushAndRemoveUntil(context, route, (_) => false);
+            },
+          ),
+          ReviewButton(),
+          AboutButton(),
+        ],
+      ),
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

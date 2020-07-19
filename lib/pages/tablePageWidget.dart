@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mult_tables/pages/MathChoicesWidget.dart';
 import 'package:mult_tables/pages/TableBodyWidget.dart';
 import 'package:mult_tables/pages/appBarProvider.dart';
 import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
@@ -16,7 +17,7 @@ class TablePageWidget extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar:
-            buildAppBar(context, 'Multi Tables for $multBy', QuizLevelsPageWidget()),
+            buildAppBar(context, 'Multi Tables for $multBy', MathChoices()),
         body: Center(
           child: TableBodyWidget(multBy),
         ),

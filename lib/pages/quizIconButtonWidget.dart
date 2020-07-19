@@ -13,7 +13,7 @@ class QuizIconButtonWidget extends StatelessWidget {
       icon: Icon(Icons.question_answer),
       color: Theme.of(context).backgroundColor,
       onPressed: () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               //builder: (context) => QuizLevelsPageWidget()),
