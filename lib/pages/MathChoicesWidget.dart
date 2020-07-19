@@ -41,7 +41,7 @@ class MathChoices extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             text: 'Addition',
             fontSize: 18,
-            icon: Icons.plus_one,
+            icon: Icons.add,
             gradientColors: [Colors.black, Colors.grey],
             onPressed: () {},
           ),
@@ -59,7 +59,7 @@ class MathChoices extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             text: 'Multiplication',
             fontSize: 18,
-            icon: Icons.multiline_chart,
+            icon: Icons.clear,
             gradientColors: [secondColor, firstColor],
             onPressed: () {
               Route route = MaterialPageRoute(
@@ -72,7 +72,7 @@ class MathChoices extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             text: 'Division',
             fontSize: 18,
-            icon: Icons.drive_eta,
+            icon: Icons.unfold_less,
             gradientColors: [Colors.black, Colors.grey],
           ),
         ],
