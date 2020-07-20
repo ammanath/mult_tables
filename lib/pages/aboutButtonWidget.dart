@@ -53,17 +53,15 @@ class AboutButton extends StatelessWidget {
                       text: signature,
                       style: GoogleFonts.dancingScript(
                           fontSize: 20, color: Colors.blue)),
-                  
                 ],
               ),
             ),
             elevation: 24.0,
             backgroundColor: Colors.blue[100],
             actions: <Widget>[
-              Text(
-                      version,
-                      style: GoogleFonts.dancingScript(
-                          fontSize: 10, color: Colors.pink)),
+              Text(version,
+                  style: GoogleFonts.dancingScript(
+                      fontSize: 10, color: Colors.pink)),
               IconButton(
                 icon: Icon(Icons.feedback),
                 color: Colors.pink,
