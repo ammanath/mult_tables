@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/pages/aboutButtonWidget.dart';
 import 'package:mult_tables/pages/multTablesHomePageWidget.dart';
 import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
@@ -46,7 +47,8 @@ class MathChoices extends StatelessWidget {
               gradientColors: [secondColor, firstColor],
               onPressed: () {
                 Route route = MaterialPageRoute(
-                    builder: (context) => QuizLevelsPageWidget(operation: 'Add',));
+                    builder: (context) =>
+                        QuizLevelsPageWidget(operation: OpType.Add));
                 Navigator.pushAndRemoveUntil(context, route, (_) => false);
               }),
           ButtonMathOption(buttonText: 'Subtraction'),
@@ -94,8 +96,8 @@ class ButtonMathOption extends StatelessWidget {
 
     Image img = Image.network(
         "https://github.com/ammanath/Images/blob/master/comingSoon.gif");
-          // var encodedImage = Image.memory(
-          //           imageUtils.encodePng(img));
+    // var encodedImage = Image.memory(
+    //           imageUtils.encodePng(img));
 
     showDialog(
         context: context,

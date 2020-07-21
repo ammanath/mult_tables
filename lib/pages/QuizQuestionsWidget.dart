@@ -9,9 +9,9 @@ import 'package:mult_tables/pages/resultsPage.dart';
 
 class QuizQuestionsWidget extends StatefulWidget {
   final Level quizLevel;
-  final String operation;
+  final OpType opType;
 
-  QuizQuestionsWidget(this.quizLevel, this.operation);
+  QuizQuestionsWidget(this.quizLevel, this.opType);
 
   @override
   QuizQuestionsWidgetState createState() => QuizQuestionsWidgetState();
@@ -20,6 +20,7 @@ class QuizQuestionsWidget extends StatefulWidget {
 class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   static const countOfQuestions = 15;
   Level level; // = widget.quizLevel;
+  OpType opType;
   Quiz quiz = null; //Quiz(countOfQuestions, 17, 0, true);
   var question = '';
   int questionNo = 0;
@@ -36,10 +37,30 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
 
   void getQuizData() {
     level = widget.quizLevel;
-    quiz = Quiz(countOfQuestions, level, true);
+    opType = widget.opType;
+    print('Creating quiz with Operation : $opType');
+    quiz = Quiz(countOfQuestions, level, true, operation: opType);
     setState(() {
       questionNo = 0;
     });
+  }
+
+  String getOpSymbol(OpType op) {
+    switch ( describeEnum(op)) {
+      case 'Add':
+        return '+';
+        break;
+      case 'Subtract':
+        return '-';
+        break;
+      case 'Multiply':
+        return '*';
+        break;
+      case 'Divide':
+        return '/';
+        break;
+      default:
+    }
   }
 
   @override
@@ -48,7 +69,7 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     question = 'Question ${questionNo + 1} of $countOfQuestions :';
 
     var q1 =
-        '${quiz.questions[questionNo].num1} * ${quiz.questions[questionNo].num2} = ';
+        '${quiz.questions[questionNo].num1} ${getOpSymbol(opType)} ${quiz.questions[questionNo].num2} = ';
 
     List<int> options = quiz.questions[questionNo].getAllPossibleAnswers();
     _progressValue = (questionNo) / countOfQuestions;
@@ -129,55 +150,50 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
 
   ArgonTimerButton buildArgonTimerButton(BuildContext context, int timeL) {
     return ArgonTimerButton(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width * 0.45,
-                  minWidth: MediaQuery.of(context).size.width * 0.30,
-                  highlightColor: Colors.transparent,
-                  highlightElevation: 0,
-                  roundLoadingShape: false,
-                  splashColor: Colors.transparent,
-                  onTap: (startTimer, btnState) {
-                    if (questionNo != quiz.countOfQuestions - 1) {
-                      startTimer(10);
-                    }
-                    updateQuestion(timeL);
-                    print('In onTap for 1 , time left is $timeL');
-                  },
-                  initialTimer: countDownTime,
+      height: 50,
+      width: MediaQuery.of(context).size.width * 0.45,
+      minWidth: MediaQuery.of(context).size.width * 0.30,
+      highlightColor: Colors.transparent,
+      highlightElevation: 0,
+      roundLoadingShape: false,
+      splashColor: Colors.transparent,
+      onTap: (startTimer, btnState) {
+        if (questionNo != quiz.countOfQuestions - 1) {
+          startTimer(10);
+        }
+        updateQuestion(timeL);
+        print('In onTap for 1 , time left is $timeL');
+      },
+      initialTimer: countDownTime,
 
-                  child: Text(
-                    selected == -1 ? 'Next' : 'Submit',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700),
-                  ),
-                  loader: (timeLeft) {
-                    timeL = timeLeft;
-                    return Text(
-                      "Submit | $timeLeft",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700),
-                    );
-                  },
-                  borderRadius: 5.0,
-                  //color: Colors.transparent,
-                  elevation: 0,
-                );
+      child: Text(
+        selected == -1 ? 'Next' : 'Submit',
+        style: TextStyle(
+            color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),
+      ),
+      loader: (timeLeft) {
+        timeL = timeLeft;
+        return Text(
+          "Submit | $timeLeft",
+          style: TextStyle(
+              color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),
+        );
+      },
+      borderRadius: 5.0,
+      //color: Colors.transparent,
+      elevation: 0,
+    );
   }
 
   MaterialButton buildMaterialButton(int selection) {
     return MaterialButton(
-                  child: new Text('${selection}'),
-                  onPressed: () {
-                    choiceSelected(selection);
-                  },
-                  color:
-                      selected == selection ? Colors.teal : Colors.blueGrey,
-                  minWidth: 120.0,
-                );
+      child: new Text('${selection}'),
+      onPressed: () {
+        choiceSelected(selection);
+      },
+      color: selected == selection ? Colors.teal : Colors.blueGrey,
+      minWidth: 120.0,
+    );
   }
 
   updateQuestion(int timeInSeconds) {

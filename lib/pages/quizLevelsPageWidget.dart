@@ -5,9 +5,9 @@ import 'package:mult_tables/pages/HomeIconButtonWidget.dart';
 import 'package:mult_tables/pages/niceButtonWidget.dart';
 
 class QuizLevelsPageWidget extends StatelessWidget {
-  final String operation;
+  final OpType operation;
 
-  const QuizLevelsPageWidget({Key key, this.operation = 'Multiply'})
+  const QuizLevelsPageWidget({Key key, this.operation = OpType.Multiply})
       : super(key: key);
 
   @override

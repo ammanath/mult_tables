@@ -9,13 +9,13 @@ import 'package:nice_button/nice_button.dart';
 class NiceButtonWidget extends StatelessWidget {
   const NiceButtonWidget({
     Key key,
-    this.operation = 'Multiply',
+    this.operation = OpType.Multiply,
     @required this.buttonText,
     @required this.level,
     @required this.icon,
   }) : super(key: key);
 
-  final String operation;
+  final OpType operation;
   final String buttonText;
   final Level level;
   final IconData icon;
@@ -36,7 +36,7 @@ class NiceButtonWidget extends StatelessWidget {
     );
   }
 
-  void navigateToQuiz(BuildContext context, Level level, String operation) {
+  void navigateToQuiz(BuildContext context, Level level, OpType operation) {
     AwesomeDialog(
       context: context,
       headerAnimationLoop: false,

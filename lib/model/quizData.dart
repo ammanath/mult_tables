@@ -2,47 +2,65 @@ import 'dart:math';
 import 'package:mult_tables/model/enumLevel.dart';
 
 class Quiz {
-  bool allow12and21;
-  int countOfQuestions;
-  Level levelOfQuiz;
+  final bool allow12and21;
+  final int countOfQuestions;
+  final Level levelOfQuiz;
+  final OpType operation;
 
   var _result; //= getListForQuiz(5, 7, 0, true);
   var _firstListOfNumbers, _secondListOfNumbers;
 
   List<Question> questions = [];
-  //int totalScore = 0;
 
-  int get totalTime{
-    int sum=0;
-    questions.forEach((e) => sum += e?.time ?? 0);
-    return sum;
+  Quiz(this.countOfQuestions, this.levelOfQuiz, this.allow12and21,
+      {this.operation = OpType.Multiply}) {
+    populateQuestions();
   }
 
-  int get totalScore{
-    int sum=0;
-    questions.forEach((e) => sum += e.num1*e.num2 == e.selected?1:0);
-    return sum;
-  }
-
-  Quiz(this.countOfQuestions, this.levelOfQuiz, this.allow12and21) {
-    _result = _getQuestionsForQuiz(countOfQuestions, levelOfQuiz, allow12and21);
+  void populateQuestions() {
+    _result = _getQuestionsForQuiz();
 
     _firstListOfNumbers = _result[0];
     _secondListOfNumbers = _result[1];
 
     for (int count = 0; count < countOfQuestions; count++) {
-      questions.add(
-          Question(_firstListOfNumbers[count], _secondListOfNumbers[count]));
+      questions.add(Question(
+          _firstListOfNumbers[count], _secondListOfNumbers[count],
+          operation: operation));
     }
+  }
 
+  int get totalTime {
+    int sum = 0;
+    questions.forEach((e) => sum += e?.time ?? 0);
+    return sum;
+  }
+
+  int get totalScore {
+    int sum = 0;
+    questions.forEach((e) => sum += getAns(e) == e.selected ? 1 : 0);
+    return sum;
+  }
+
+  int getAns(Question e) {
+    int result = 0;
+    if (operation == OpType.Multiply) {
+      result = e.num1 * e.num2;
+    } else if (operation == OpType.Add) {
+      result = e.num1 + e.num2;
+    } else if (operation == OpType.Subtract) {
+      result = e.num1 - e.num2;
+    } else if (operation == OpType.Divide) {
+      result = e.num1 ~/ e.num2;
+    }
+    return result;
   }
 
 // @param const countOfQuestions = 5; This is the length of the List returned
 // const levelOfQuiz = enum.index *10 + 10; //random generator upto this level (not inclusive). Max number in the quiz
 // const startLevel = 0; //lowest digit in the quiz, Min number in the quiz
 // const allow12and21 = true;
-  List<List> _getQuestionsForQuiz(
-      int countOfQuestions, Level levelOfQuiz, bool allow12and21) {
+  List<List> _getQuestionsForQuiz() {
     var firstListOfNums = <int>[];
     var secondListOfNums = <int>[];
 
@@ -81,7 +99,8 @@ class Quiz {
     }
 
     if (_effort > 98) {
-      print("Possible error , effor at $_effort, l1 = $firstListOfNums , l2 = $secondListOfNums");
+      print(
+          "Possible error , effor at $_effort, l1 = $firstListOfNums , l2 = $secondListOfNums");
     }
 
     return [firstListOfNums, secondListOfNums];
@@ -97,16 +116,14 @@ class Quiz {
 
 class Question {
   int num1, num2;
-  String operation;
+  OpType operation;
   int selected = -1;
   int time;
   List<int> answers;
 
-  Question(this.num1, this.num2, {this.operation = '*'});
+  Question(this.num1, this.num2, {this.operation = OpType.Multiply});
 
-  Question.add(int num1, int num2) : this(num1, num2, operation: '+');
-
-  int get rightAns => num1 * num2;
+  int get rightAns => operation == OpType.Multiply ? num1 * num2 : num1 + num2;
 
   List<int> getAllPossibleAnswers() {
     if (answers == null) {
@@ -117,7 +134,8 @@ class Question {
 
   List<int> _getPossibleResults(final int firstNo, final int secondNo) {
     List<int> resultsUpdated = [];
-    final int answer = firstNo * secondNo;
+    final int answer =
+        operation == OpType.Multiply ? firstNo * secondNo : firstNo + secondNo;
     const int listLength = 4;
     List<int> results = List<int>(4);
 
