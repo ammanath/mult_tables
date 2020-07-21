@@ -1,16 +1,14 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mult_tables/model/enumLevel.dart';
 import 'package:mult_tables/pages/HomeIconButtonWidget.dart';
-import 'package:mult_tables/pages/QuizQuestionsWidget.dart';
 import 'package:mult_tables/pages/niceButtonWidget.dart';
-import 'package:nice_button/nice_button.dart';
 
 class QuizLevelsPageWidget extends StatelessWidget {
-  const QuizLevelsPageWidget({
-    Key key,
-  }) : super(key: key);
+  final String operation;
+
+  const QuizLevelsPageWidget({Key key, this.operation = 'Multiply'})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,34 +35,28 @@ class QuizLevelsPageWidget extends StatelessWidget {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            NiceButtonWidget(buttonText: '$levelEasy (0 to 5)', level: Level.Easy,icon:Icons.child_friendly),
-            NiceButtonWidget(buttonText: '$levelMedium (5 to 12)', level: Level.Medium,icon:Icons.child_care),
-            NiceButtonWidget(buttonText: '$levelDiff (8 to 15)', level: Level.Difficult,icon:Icons.person),
-            
+            NiceButtonWidget(
+              buttonText: '$levelEasy (0 to 5)',
+              level: Level.Easy,
+              icon: Icons.child_friendly,
+              operation: operation,
+            ),
+            NiceButtonWidget(
+              buttonText: '$levelMedium (5 to 12)',
+              level: Level.Medium,
+              icon: Icons.child_care,
+              operation: operation,
+            ),
+            NiceButtonWidget(
+              buttonText: '$levelDiff (8 to 15)',
+              level: Level.Difficult,
+              icon: Icons.person,
+              operation: operation,
+            ),
           ],
         )),
         backgroundColor: Theme.of(context).secondaryHeaderColor,
       ),
     );
-  }
-
-  void navigateToQuiz(BuildContext context, Level level) {
-    AwesomeDialog(
-      context: context,
-      headerAnimationLoop: false,
-      dialogType: DialogType.INFO,
-      animType: AnimType.SCALE,
-      title: 'Ready for Quiz?',
-      desc:
-          'You have selected the ${level == Level.Easy ? 'Easy' : level == Level.Medium ? 'Medium' : 'Difficult'} level. There will be ${QuizQuestionsWidgetState.countOfQuestions} questions in the quiz and you will have ${QuizQuestionsWidgetState.countDownTime} seconds for each question. \n All the best!',
-      btnOkText: 'Go',
-      btnCancelOnPress: () {},
-      btnOkOnPress: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => QuizQuestionsWidget(level)),
-        );
-      },
-    )..show();
   }
 }

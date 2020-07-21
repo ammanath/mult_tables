@@ -57,11 +57,11 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
 
   @override
   void initState() {
-    FirebaseAdMob.instance
-        .initialize(appId: 'ca-app-pub-6888147562274579~4828303279');
-    _bannerAd = createBannerAd()
-      ..load()
-      ..show();
+    // FirebaseAdMob.instance
+    //     .initialize(appId: 'ca-app-pub-6888147562274579~4828303279');
+    // _bannerAd = createBannerAd()
+    //   ..load()
+    //   ..show();
 
     super.initState();
     _scrollController = ScrollController();
@@ -69,8 +69,8 @@ class _MultTablesHomePageWidgetState extends State<MultTablesHomePageWidget> {
 
   @override
   void dispose() {
-    _bannerAd.dispose();
-    _interstitialAd.dispose();
+    // _bannerAd.dispose();
+    // _interstitialAd.dispose();
     _scrollController.dispose();
     super.dispose();
   }

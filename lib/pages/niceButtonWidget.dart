@@ -9,11 +9,13 @@ import 'package:nice_button/nice_button.dart';
 class NiceButtonWidget extends StatelessWidget {
   const NiceButtonWidget({
     Key key,
+    this.operation = 'Multiply',
     @required this.buttonText,
     @required this.level,
     @required this.icon,
   }) : super(key: key);
 
+  final String operation;
   final String buttonText;
   final Level level;
   final IconData icon;
@@ -29,18 +31,18 @@ class NiceButtonWidget extends StatelessWidget {
       icon: icon,
       gradientColors: [secondColor, firstColor],
       onPressed: () {
-        navigateToQuiz(context, level);
+        navigateToQuiz(context, level,operation);
       },
     );
   }
 
-  void navigateToQuiz(BuildContext context, Level level) {
+  void navigateToQuiz(BuildContext context, Level level, String operation) {
     AwesomeDialog(
       context: context,
       headerAnimationLoop: false,
       dialogType: DialogType.INFO,
       animType: AnimType.SCALE,
-      title: 'Ready for Quiz?',
+      title: 'Ready for the $operation Quiz?',
       desc:
           'You have selected the ${level == Level.Easy ? 'Easy' : level == Level.Medium ? 'Medium' : 'Difficult'} level. There will be ${QuizQuestionsWidgetState.countOfQuestions} questions in the quiz and you will have ${QuizQuestionsWidgetState.countDownTime} seconds for each question. \n All the best!',
       btnOkText: 'Go',
@@ -48,7 +50,7 @@ class NiceButtonWidget extends StatelessWidget {
       btnOkOnPress: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => QuizQuestionsWidget(level)),
+          MaterialPageRoute(builder: (context) => QuizQuestionsWidget(level, operation)),
         );
       },
     )..show();

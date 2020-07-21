@@ -9,8 +9,9 @@ import 'package:mult_tables/pages/resultsPage.dart';
 
 class QuizQuestionsWidget extends StatefulWidget {
   final Level quizLevel;
+  final String operation;
 
-  QuizQuestionsWidget(this.quizLevel);
+  QuizQuestionsWidget(this.quizLevel, this.operation);
 
   @override
   QuizQuestionsWidgetState createState() => QuizQuestionsWidgetState();
