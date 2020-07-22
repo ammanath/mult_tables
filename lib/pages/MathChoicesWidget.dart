@@ -43,7 +43,7 @@ class MathChoices extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               text: 'Addition',
               fontSize: 18,
-              icon: Icons.clear,
+              icon: Icons.add,
               gradientColors: [secondColor, firstColor],
               onPressed: () {
                 Route route = MaterialPageRoute(
@@ -51,7 +51,19 @@ class MathChoices extends StatelessWidget {
                         QuizLevelsPageWidget(operation: OpType.Add));
                 Navigator.pushAndRemoveUntil(context, route, (_) => false);
               }),
-          ButtonMathOption(buttonText: 'Subtraction'),
+          NiceButton(
+              radius: 30,
+              padding: const EdgeInsets.all(8),
+              text: 'Subtraction',
+              fontSize: 18,
+              icon: Icons.dashboard,
+              gradientColors: [secondColor, firstColor],
+              onPressed: () {
+                Route route = MaterialPageRoute(
+                    builder: (context) =>
+                        QuizLevelsPageWidget(operation: OpType.Subtract));
+                Navigator.pushAndRemoveUntil(context, route, (_) => false);
+              }),
           NiceButton(
               radius: 30,
               padding: const EdgeInsets.all(8),
@@ -64,7 +76,18 @@ class MathChoices extends StatelessWidget {
                     builder: (context) => QuizLevelsPageWidget(operation: OpType.Multiply));
                 Navigator.pushAndRemoveUntil(context, route, (_) => false);
               }),
-          ButtonMathOption(buttonText: 'Division'),
+          NiceButton(
+              radius: 30,
+              padding: const EdgeInsets.all(8),
+              text: 'Multiplication',
+              fontSize: 18,
+              icon: Icons.clear,
+              gradientColors: [secondColor, firstColor],
+              onPressed: () {
+                Route route = MaterialPageRoute(
+                    builder: (context) => QuizLevelsPageWidget(operation: OpType.Divide));
+                Navigator.pushAndRemoveUntil(context, route, (_) => false);
+              }),
         ],
       )),
     );
