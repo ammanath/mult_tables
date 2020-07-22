@@ -38,22 +38,8 @@ class Quiz {
 
   int get totalScore {
     int sum = 0;
-    questions.forEach((e) => sum += getAns(e) == e.selected ? 1 : 0);
+    questions.forEach((e) => sum += e.rightAns == e.selected ? 1 : 0);
     return sum;
-  }
-
-  int getAns(Question e) {
-    int result = 0;
-    if (operation == OpType.Multiply) {
-      result = e.num1 * e.num2;
-    } else if (operation == OpType.Add) {
-      result = e.num1 + e.num2;
-    } else if (operation == OpType.Subtract) {
-      result = e.num1 - e.num2;
-    } else if (operation == OpType.Divide) {
-      result = e.num1 ~/ e.num2;
-    }
-    return result;
   }
 
 // @param const countOfQuestions = 5; This is the length of the List returned
@@ -117,13 +103,25 @@ class Quiz {
 class Question {
   int num1, num2;
   OpType operation;
-  int selected = -1;
+  int selected ;
   int time;
   List<int> answers;
 
   Question(this.num1, this.num2, {this.operation = OpType.Multiply});
 
-  int get rightAns => operation == OpType.Multiply ? num1 * num2 : num1 + num2;
+  int get rightAns {
+    int result = 0;
+    if (operation == OpType.Multiply) {
+      result = num1 * num2;
+    } else if (operation == OpType.Add) {
+      result = num1 + num2;
+    } else if (operation == OpType.Subtract) {
+      result = num1 - num2;
+    } else if (operation == OpType.Divide) {
+      result = num1 ~/ num2;
+    }
+    return result;
+  }
 
   List<int> getAllPossibleAnswers() {
     if (answers == null) {
@@ -134,8 +132,8 @@ class Question {
 
   List<int> _getPossibleResults(final int firstNo, final int secondNo) {
     List<int> resultsUpdated = [];
-    final int answer =
-        operation == OpType.Multiply ? firstNo * secondNo : firstNo + secondNo;
+    final int answer = rightAns;
+
     const int listLength = 4;
     List<int> results = List<int>(4);
 
