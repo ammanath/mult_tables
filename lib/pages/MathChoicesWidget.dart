@@ -61,7 +61,7 @@ class MathChoices extends StatelessWidget {
               gradientColors: [secondColor, firstColor],
               onPressed: () {
                 Route route = MaterialPageRoute(
-                    builder: (context) => QuizLevelsPageWidget());
+                    builder: (context) => QuizLevelsPageWidget(operation: OpType.Multiply));
                 Navigator.pushAndRemoveUntil(context, route, (_) => false);
               }),
           ButtonMathOption(buttonText: 'Division'),

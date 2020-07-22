@@ -100,7 +100,7 @@ class ResultsPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => QuizLevelsPageWidget()))
+                              builder: (context) => QuizLevelsPageWidget(operation: quiz.operation )))
                     }),
           ],
         ),

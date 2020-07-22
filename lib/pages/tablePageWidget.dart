@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mult_tables/pages/MathChoicesWidget.dart';
 import 'package:mult_tables/pages/TableBodyWidget.dart';
 import 'package:mult_tables/pages/appBarProvider.dart';
-import 'package:mult_tables/pages/quizLevelsPageWidget.dart';
 
 class TablePageWidget extends StatelessWidget {
   final int multBy;
