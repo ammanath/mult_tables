@@ -70,6 +70,11 @@ class Quiz {
 
       _num2 = _getRandomNumberInRange(generateNumsFrom, generateNumsUpto);
 
+      //Prevent Div by 0
+      if(operation==OpType.Divide){
+        _num2==0?_num2=_num2+_num1 + 1:print('no change');
+      }
+
       if (allow12and21) {
         _comb = '$_num1$_num2';
       } else {
