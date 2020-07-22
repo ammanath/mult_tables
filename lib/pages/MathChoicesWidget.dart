@@ -79,9 +79,9 @@ class MathChoices extends StatelessWidget {
           NiceButton(
               radius: 30,
               padding: const EdgeInsets.all(8),
-              text: 'Multiplication',
+              text: 'Divide',
               fontSize: 18,
-              icon: Icons.clear,
+              icon: Icons.dialpad,
               gradientColors: [secondColor, firstColor],
               onPressed: () {
                 Route route = MaterialPageRoute(
