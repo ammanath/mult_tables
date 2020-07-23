@@ -55,6 +55,9 @@ flutter_icons:
 # The following section is specific to Flutter.
 flutter:
   fonts:
+    - family:  Mult_Icons
+      fonts:
+       - asset: assets/Mult_Icons.ttf    
     - family: DancingScript     
       fonts:
         - asset: assets/dancing_script.ttf

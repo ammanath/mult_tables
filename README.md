@@ -46,3 +46,9 @@ Privacy: http://www.ammanath.com/mathprivacy.html
         Add google-services.json to android\app 
     Add ApplicaitonId in AndroidManifest.xml
     Add code to call AdMob in stateful widget
+
+
+## Attributions
+Icons for Maths from: <a href="https://icon-library.net/icon/math-png-icon-10.html">Math Png Icon #130855</a>
+https://www.fluttericon.com/
+
