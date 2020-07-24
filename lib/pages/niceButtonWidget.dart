@@ -42,7 +42,7 @@ class NiceButtonWidget extends StatelessWidget {
       headerAnimationLoop: false,
       dialogType: DialogType.INFO,
       animType: AnimType.SCALE,
-      title: 'Ready for the $operation Quiz?',
+      title: 'Ready for the ${operation.toShortString()} Quiz?',
       desc:
           'You have selected the ${level == Level.Easy ? 'Easy' : level == Level.Medium ? 'Medium' : 'Difficult'} level. There will be ${QuizQuestionsWidgetState.countOfQuestions} questions in the quiz and you will have ${QuizQuestionsWidgetState.countDownTime} seconds for each question. \n All the best!',
       btnOkText: 'Go',
