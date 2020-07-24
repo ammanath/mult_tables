@@ -46,7 +46,7 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   }
 
   String getOpSymbol(OpType op) {
-    switch ( describeEnum(op)) {
+    switch (describeEnum(op)) {
       case 'Add':
         return '+';
         break;
@@ -95,33 +95,40 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
         ),
         body: Container(
             color: Theme.of(context).secondaryHeaderColor,
-            margin: const EdgeInsets.all(40.0),
+            margin: const EdgeInsets.all(20.0),
             alignment: Alignment.topCenter,
             child: Column(children: <Widget>[
-              new Padding(padding: EdgeInsets.all(6.0)),
-              new Text('Score : ${quiz.totalScore ?? 0}'),
+              new Padding(padding: EdgeInsets.all(2.0)),
+              new Text('Score : ${quiz.totalScore ?? 0}',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 10,
+                    fontFamily: 'DancingScript',
+                  )),
               new Padding(padding: EdgeInsets.all(6.0)),
               new Text(
                 '$question',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.blue,
+                  color: Colors.blueGrey[900],
+                  fontFamily: 'DancingScript',
                 ),
               ),
               new Padding(padding: EdgeInsets.all(6.0)),
-              //TODO: add a line seperator
+              Divider(color: Colors.blue),
+              new Padding(padding: EdgeInsets.all(6.0)),
               new Text(
-                '$q1',
+                '$q1', //Question 1 of 15
                 style: GoogleFonts.rumRaisin(
                   fontSize: 40,
-                  color: Colors.deepOrange,
+                  color: Colors.blueGrey[900],
                 ),
               ),
               new Padding(padding: EdgeInsets.all(8.0)),
               LinearProgressIndicator(
                 value: _progressValue,
               ),
-              new Padding(padding: EdgeInsets.all(20.0)),
+              new Padding(padding: EdgeInsets.all(12.0)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -129,6 +136,7 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
                   buildMaterialButton(options[1]),
                 ],
               ),
+              new Padding(padding: EdgeInsets.all(8.0)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -187,11 +195,15 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
 
   MaterialButton buildMaterialButton(int selection) {
     return MaterialButton(
-      child: new Text('${selection}'),
+      child: new Text('${selection}',
+          style: GoogleFonts.rumRaisin(
+            fontSize: 40,
+            color: selected == selection ? Colors.green : Colors.cyanAccent,
+          )),
       onPressed: () {
         choiceSelected(selection);
       },
-      color: selected == selection ? Colors.teal : Colors.blueGrey,
+      color: selected == selection ? Colors.lime : Colors.grey,
       minWidth: 120.0,
     );
   }
