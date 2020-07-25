@@ -181,12 +181,12 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
       child: new Text('${selection}',
           style: GoogleFonts.rumRaisin(
             fontSize: 40,
-            color: selected == selection ? Colors.green : Colors.white,
+            color: selected == selection ? Colors.teal[900] : Colors.teal,
           )),
       onPressed: () {
         choiceSelected(selection);
       },
-      color: selected == selection ? Colors.lime : Colors.black12,
+      color: selected == selection ? Colors.lime : Theme.of(context).backgroundColor,
       minWidth: 120.0,
     );
   }
