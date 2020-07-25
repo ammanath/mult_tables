@@ -38,30 +38,13 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
   void getQuizData() {
     level = widget.quizLevel;
     opType = widget.opType;
-    print('Creating quiz with Operation : $opType');
     quiz = Quiz(countOfQuestions, level, true, operation: opType);
     setState(() {
       questionNo = 0;
     });
   }
 
-  String getOpSymbol(OpType op) {
-    switch (describeEnum(op)) {
-      case 'Add':
-        return '+';
-        break;
-      case 'Subtract':
-        return '-';
-        break;
-      case 'Multiply':
-        return '*';
-        break;
-      case 'Divide':
-        return '/';
-        break;
-      default:
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +52,7 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     question = 'Question ${questionNo + 1} of $countOfQuestions :';
 
     var q1 =
-        '${quiz.questions[questionNo].num1} ${getOpSymbol(opType)} ${quiz.questions[questionNo].num2} = ';
+        '${quiz.questions[questionNo].num1} ${opType.toOpSymbol()} ${quiz.questions[questionNo].num2} = ';
 
     List<int> options = quiz.questions[questionNo].getAllPossibleAnswers();
     _progressValue = (questionNo) / countOfQuestions;
@@ -198,12 +181,12 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
       child: new Text('${selection}',
           style: GoogleFonts.rumRaisin(
             fontSize: 40,
-            color: selected == selection ? Colors.green : Colors.cyanAccent,
+            color: selected == selection ? Colors.green : Colors.white,
           )),
       onPressed: () {
         choiceSelected(selection);
       },
-      color: selected == selection ? Colors.lime : Colors.grey,
+      color: selected == selection ? Colors.lime : Colors.black12,
       minWidth: 120.0,
     );
   }
