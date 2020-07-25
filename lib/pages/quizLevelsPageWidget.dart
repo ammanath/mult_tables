@@ -32,28 +32,39 @@ class QuizLevelsPageWidget extends StatelessWidget {
           ],
         ),
         body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            NiceButtonWidget(
-              buttonText: '$levelEasy (0 to 5)',
-              level: Level.Easy,
-              icon: Icons.child_friendly,
-              operation: operation,
+            child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/bkg1.jfif"),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                  Colors.yellow.withOpacity(0.5), BlendMode.dstATop),
             ),
-            NiceButtonWidget(
-              buttonText: '$levelMedium (5 to 12)',
-              level: Level.Medium,
-              icon: Icons.child_care,
-              operation: operation,
-            ),
-            NiceButtonWidget(
-              buttonText: '$levelDiff (8 to 15)',
-              level: Level.Difficult,
-              icon: Icons.person,
-              operation: operation,
-            ),
-          ],
+          ),
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              NiceButtonWidget(
+                buttonText: '$levelEasy (0 to 5)',
+                level: Level.Easy,
+                icon: Icons.child_friendly,
+                operation: operation,
+              ),
+              NiceButtonWidget(
+                buttonText: '$levelMedium (5 to 12)',
+                level: Level.Medium,
+                icon: Icons.child_care,
+                operation: operation,
+              ),
+              NiceButtonWidget(
+                buttonText: '$levelDiff (8 to 15)',
+                level: Level.Difficult,
+                icon: Icons.person,
+                operation: operation,
+              ),
+            ],
+          ),
         )),
         backgroundColor: Theme.of(context).secondaryHeaderColor,
       ),
