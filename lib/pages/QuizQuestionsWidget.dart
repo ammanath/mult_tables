@@ -44,8 +44,6 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     String levelDesc = describeEnum(level);
@@ -84,18 +82,16 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
               new Padding(padding: EdgeInsets.all(2.0)),
               new Text('Score : ${quiz.totalScore ?? 0}',
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 10,
-                    fontFamily: 'DancingScript',
-                  )),
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontFamily: 'DancingScript')),
               new Padding(padding: EdgeInsets.all(6.0)),
               new Text(
                 '$question',
                 style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.blueGrey[900],
-                  fontFamily: 'DancingScript',
-                ),
+                    fontSize: 18,
+                    color: Colors.blueGrey[900],
+                    fontFamily: 'DancingScript'),
               ),
               new Padding(padding: EdgeInsets.all(6.0)),
               Divider(color: Colors.blue),
@@ -186,13 +182,14 @@ class QuizQuestionsWidgetState extends State<QuizQuestionsWidget> {
       onPressed: () {
         choiceSelected(selection);
       },
-      color: selected == selection ? Colors.lime : Theme.of(context).backgroundColor,
+      color: selected == selection
+          ? Colors.lime
+          : Theme.of(context).backgroundColor,
       minWidth: 120.0,
     );
   }
 
   updateQuestion(int timeInSeconds) {
-    print('In udpateQuestion, $selected');
     quiz.questions[questionNo].selected = selected;
     quiz.questions[questionNo].time = countDownTime - timeInSeconds;
     setState(() {

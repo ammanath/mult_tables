@@ -36,61 +36,73 @@ class MathChoices extends StatelessWidget {
         ],
       ),
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          NiceButton(
-              radius: 30,
-              padding: const EdgeInsets.all(8),
-              text: 'Addition',
-              fontSize: 18,
-              icon:Mult_Icons.plus_outline,
-              gradientColors: [secondColor, firstColor],
-              onPressed: () {
-                Route route = MaterialPageRoute(
-                    builder: (context) =>
-                        QuizLevelsPageWidget(operation: OpType.Add));
-                Navigator.pushAndRemoveUntil(context, route, (_) => false);
-              }),
-          NiceButton(
-              radius: 30,
-              padding: const EdgeInsets.all(8),
-              text: 'Subtraction',
-              fontSize: 18,
-              icon: Mult_Icons.minus_outline,
-              gradientColors: [secondColor, firstColor],
-              onPressed: () {
-                Route route = MaterialPageRoute(
-                    builder: (context) =>
-                        QuizLevelsPageWidget(operation: OpType.Subtract));
-                Navigator.pushAndRemoveUntil(context, route, (_) => false);
-              }),
-          NiceButton(
-              radius: 30,
-              padding: const EdgeInsets.all(8),
-              text: 'Multiplication',
-              fontSize: 18,
-              icon: Mult_Icons.cancel_outline,
-              gradientColors: [secondColor, firstColor],
-              onPressed: () {
-                Route route = MaterialPageRoute(
-                    builder: (context) => QuizLevelsPageWidget(operation: OpType.Multiply));
-                Navigator.pushAndRemoveUntil(context, route, (_) => false);
-              }),
-          NiceButton(
-              radius: 30,
-              padding: const EdgeInsets.all(8),
-              text: 'Divide',
-              fontSize: 18,
-              icon: Mult_Icons.divide_outline,
-              // Icon(Mult_Icons.divide),
-              gradientColors: [secondColor, firstColor],
-              onPressed: () {
-                Route route = MaterialPageRoute(
-                    builder: (context) => QuizLevelsPageWidget(operation: OpType.Divide));
-                Navigator.pushAndRemoveUntil(context, route, (_) => false);
-              }),
-        ],
+          child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/bkg1.jfif"),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(Colors.yellow.withOpacity(0.2), BlendMode.dstATop),
+          ),
+        ),
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            NiceButton(
+                radius: 30,
+                padding: const EdgeInsets.all(8),
+                text: 'Addition',
+                fontSize: 18,
+                icon: Mult_Icons.plus_outline,
+                gradientColors: [secondColor, firstColor],
+                onPressed: () {
+                  Route route = MaterialPageRoute(
+                      builder: (context) =>
+                          QuizLevelsPageWidget(operation: OpType.Add));
+                  Navigator.pushAndRemoveUntil(context, route, (_) => false);
+                }),
+            NiceButton(
+                radius: 30,
+                padding: const EdgeInsets.all(8),
+                text: 'Subtraction',
+                fontSize: 18,
+                icon: Mult_Icons.minus_outline,
+                gradientColors: [secondColor, firstColor],
+                onPressed: () {
+                  Route route = MaterialPageRoute(
+                      builder: (context) =>
+                          QuizLevelsPageWidget(operation: OpType.Subtract));
+                  Navigator.pushAndRemoveUntil(context, route, (_) => false);
+                }),
+            NiceButton(
+                radius: 30,
+                padding: const EdgeInsets.all(8),
+                text: 'Multiplication',
+                fontSize: 18,
+                icon: Mult_Icons.cancel_outline,
+                gradientColors: [secondColor, firstColor],
+                onPressed: () {
+                  Route route = MaterialPageRoute(
+                      builder: (context) =>
+                          QuizLevelsPageWidget(operation: OpType.Multiply));
+                  Navigator.pushAndRemoveUntil(context, route, (_) => false);
+                }),
+            NiceButton(
+                radius: 30,
+                padding: const EdgeInsets.all(8),
+                text: 'Divide',
+                fontSize: 18,
+                icon: Mult_Icons.divide_outline,
+                // Icon(Mult_Icons.divide),
+                gradientColors: [secondColor, firstColor],
+                onPressed: () {
+                  Route route = MaterialPageRoute(
+                      builder: (context) =>
+                          QuizLevelsPageWidget(operation: OpType.Divide));
+                  Navigator.pushAndRemoveUntil(context, route, (_) => false);
+                }),
+          ],
+        ),
       )),
     );
   }
