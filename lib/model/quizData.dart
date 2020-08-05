@@ -71,10 +71,18 @@ class Quiz {
       _num2 = _getRandomNumberInRange(generateNumsFrom, generateNumsUpto);
 
       //Prevent Div by 0
-      if(operation==OpType.Divide){
-        _num2==0?_num2=_num2+_num1 + 1:print('no change');
+      if (operation == OpType.Divide) {
+        _num2 == 0 ? _num2 = _num2 + _num1 + 1 : print('no change');
       }
 
+      //No negative numbers in subtraction
+      if (operation == OpType.Subtract) {
+        if (_num2 > _num1) {
+          int _temp = _num1;
+          _num1 = _num2;
+          _num2 = _temp;
+        }
+      }
       if (allow12and21) {
         _comb = '$_num1$_num2';
       } else {
@@ -108,7 +116,7 @@ class Quiz {
 class Question {
   int num1, num2;
   OpType operation;
-  int selected ;
+  int selected;
   int time;
   List<int> answers;
 
